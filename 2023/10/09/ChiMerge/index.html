@@ -22,20 +22,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="本文为测试第一篇博客的发布先挖个美化主页的坑（">
+  <meta name="description" content="#简介ChiMerge是一种监督的、自底向上的数据离散化方法，依赖于卡方分析。#算法流程##初始化初始化过程分为排序和初始离散化。首先根据训练样本对被离散属性的值进行排序，在每个样本前后放置一个区间边界。##合并将具有最小卡方值的相邻区间合并在一起，直到满足确定的停止标准。卡方值的计算公式：##分裂点分裂点是划分区间的点。#具体实现##数据集示例：5.1,3.5,1.4,0.2,Iris-seto">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一篇博客">
-<meta property="og:url" content="http://example.com/2023/10/09/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="ChiMerge">
+<meta property="og:url" content="http://example.com/2023/10/09/ChiMerge/index.html">
 <meta property="og:site_name" content="Miraisen">
-<meta property="og:description" content="本文为测试第一篇博客的发布先挖个美化主页的坑（">
+<meta property="og:description" content="#简介ChiMerge是一种监督的、自底向上的数据离散化方法，依赖于卡方分析。#算法流程##初始化初始化过程分为排序和初始离散化。首先根据训练样本对被离散属性的值进行排序，在每个样本前后放置一个区间边界。##合并将具有最小卡方值的相邻区间合并在一起，直到满足确定的停止标准。卡方值的计算公式：##分裂点分裂点是划分区间的点。#具体实现##数据集示例：5.1,3.5,1.4,0.2,Iris-seto">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-10-09T08:44:30.000Z">
-<meta property="article:modified_time" content="2023-10-09T10:34:06.522Z">
+<meta property="og:image" content="d:\%E5%9B%BE%E7%89%87\blog\formula.png">
+<meta property="article:published_time" content="2023-10-09T10:50:47.000Z">
+<meta property="article:modified_time" content="2023-10-11T09:22:47.994Z">
 <meta property="article:author" content="kaisei">
-<meta property="article:tag" content="文章创建">
+<meta property="article:tag" content="离散化算法">
+<meta property="article:tag" content="matlab">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:\%E5%9B%BE%E7%89%87\blog\formula.png">
 
-<link rel="canonical" href="http://example.com/2023/10/09/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">
+<link rel="canonical" href="http://example.com/2023/10/09/ChiMerge/">
 
 
 <script id="page-configurations">
@@ -48,7 +51,7 @@
   };
 </script>
 
-  <title>第一篇博客 | Miraisen</title>
+  <title>ChiMerge | Miraisen</title>
   
 
 
@@ -196,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/09/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/09/ChiMerge/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          第一篇博客
+          ChiMerge
         </h1>
 
         <div class="post-meta">
@@ -219,17 +222,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-10-09 16:44:30 / 修改时间：18:34:06" itemprop="dateCreated datePublished" datetime="2023-10-09T16:44:30+08:00">2023-10-09</time>
+              <time title="创建时间：2023-10-09 18:50:47" itemprop="dateCreated datePublished" datetime="2023-10-09T18:50:47+08:00">2023-10-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-11 17:22:47" itemprop="dateModified" datetime="2023-10-11T17:22:47+08:00">2023-10-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index"><span itemprop="name">blog</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" itemprop="url" rel="index"><span itemprop="name">数据挖掘</span></a>
                 </span>
             </span>
 
@@ -246,14 +255,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>23</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -265,7 +274,114 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为测试第一篇博客的发布<br>先挖个美化主页的坑（</p>
+        <p>#简介<br>ChiMerge是一种监督的、自底向上的数据离散化方法，依赖于卡方分析。<br>#算法流程<br>##初始化<br>初始化过程分为排序和初始离散化。<br>首先根据训练样本对被离散属性的值进行排序，在每个样本前后放置一个区间边界。<br>##合并<br>将具有最小卡方值的相邻区间合并在一起，直到满足确定的停止标准。<br><strong>卡方值的计算公式：</strong><br><img src="D:\图片\blog\formula.png" alt="本地路径"><br>##分裂点<br>分裂点是划分区间的点。<br>#具体实现<br>##数据集<br>示例：<br><code>5.1,3.5,1.4,0.2,Iris-setosa</code><br>分别代表：花萼长度(sepal-length)、花萼宽度(sepal-width)、花瓣长度(petal-length)、花瓣宽度(petal-width)、类别<br>##输入数据处理<br>输入的类别使用的是字符串，所以先将对类别编码以便后续处理。<br>使用<code>strcmp()</code>进行处理，该函数是C语言中的字符串比较函数，如果返回值为0则表示两字符串相等。<br>数据中有四种类型的数据，所以需要计算四次。因此将ChiMerge写成函数调用比较方便。<br>##ChiMerge(A)<br>为了计算卡方值，需要先计算期望频数（类别样本数*区间样本数&#x2F;总样本数）<br>需要注意，在计算期望频数时，如果某个期望频数为0，会导致计算卡方值时分母为0，将会引起错误。所以当期望频数为0时，应该改为一个较小的非零值以保证计算的稳定性。<br>##完整代码<br>    function main<br>    [a,b,c,d,class] &#x3D; textread(‘iris.txt’,’%f,%f,%f,%f,%s’);<br>    %花萼长度，花萼宽度，花瓣长度，花瓣宽度，类别<br>    num &#x3D; size(class);<br>    for i &#x3D; 1:num(1)<br>        if strcmp(class(i),’Iris-setosa’)&#x3D;&#x3D;1<br>            cls(i,1)&#x3D;1;<br>        elseif strcmp(class(i),’Iris-versicolor’)&#x3D;&#x3D;1<br>            cls(i,1)&#x3D;2;<br>        elseif strcmp(class(i),’Iris-virginica’)&#x3D;&#x3D;1<br>             cls(i,1)&#x3D;3;<br>        end<br>    end<br>    A &#x3D; [a cls];<br>    B &#x3D; [b cls];<br>    C &#x3D; [c cls];<br>    D &#x3D; [d cls];<br>    disp(‘sepal-length:’);<br>    chimerge(A);<br>    disp(‘sepal-width:’);<br>    chimerge(B);<br>    disp(‘petal-length:’);<br>    chimerge(C);<br>    disp(‘petal-width:’);<br>    chimerge(D);</p>
+<pre><code>function X = chimerge(A)
+% X矩阵的第一、二行代表两个待合并区间中各个类别的频数，第三行代表每个区间中各个类别的的样本总数，第一列到第三列代表各个类别的频数，第四列到第六列代表各个类别的期望频数，第七列代表每个区间的样本总数
+y = sortrows(A,1);%按属性值排序
+ys = size(y);
+ylen = ys(1);%属性值个数
+x = [y(:,1),y(:,1)];%初始化区间矩阵，初始值设置为y的第一列属性值
+xs = size(x);
+xlen = xs(1);%区间个数
+while xlen &gt; 6 %停止条件为最大区间数为6
+    min = 999999;%保存最小卡方值，初始化为一个较大的值
+    for j = 1:xlen-1
+        ans = 0;
+        X = zeros(3,7);
+        %对于每个区间，统计在该区间内属于每个类别的样本数，存储在X矩阵中
+        for i = 1:ylen
+            if y(i,1)&gt;=x(j,1)&amp;&amp;y(i,1)&lt;=x(j,2)
+                X(1,y(i,2))=X(1,y(i,2))+1;
+            elseif y(i,1)&gt;=x(j+1,1)&amp;&amp;y(i,1)&lt;=x(j+1,2)
+                X(2,y(i,2))=X(2,y(i,2))+1;
+            end
+        end
+        %计算每个类别的样本个数
+        for i = 1:3
+            X(3,i) = X(1,i)+X(2,i);
+        end
+        %计算每个区间的样本个数，存储在X的第七列中
+        for i =1:3
+            X(i,7) = X(i,1)+X(i,2)+X(i,3);
+        end
+        %计算期望频数
+        for i = 1:2 %两个待合并区间
+            for k = 4:6 %每个类别的期望频数
+                X(i,k) = X(i,7)*X(3,k-3)/X(3,7);
+                if X(i,k) == 0%避免零分母的情况
+                    X(i,k) = 0.1;
+                end
+            end
+        end
+    %计算卡方值
+    for i = 1:2
+        for k = 1:3
+            ans = ans + ((X(i,k)-X(i,k+3))^2)/X(i,k+3);
+        end
+    end
+    if ans &lt;= min
+        min = ans;
+        key = j;%记录最小卡方值的区间
+    end
+    end
+    %合并区间，删除合并过的后一个区间
+    x(key,2) = x(key+1,2);
+    x(key+1,:) = [];
+    xlen = xlen-1;%更新区间数
+end
+x
+</code></pre>
+<p>##输出结果<br>    &gt;&gt; ChiMerge<br>sepal-length:</p>
+<p>x &#x3D;</p>
+<pre><code>4.3000    4.8000
+4.9000    4.9000
+5.0000    5.4000
+5.5000    5.7000
+5.8000    7.0000
+7.1000    7.9000
+</code></pre>
+<p>sepal-width:</p>
+<p>x &#x3D;</p>
+<pre><code>2.0000    2.2000
+2.3000    2.4000
+2.5000    2.8000
+2.9000    2.9000
+3.0000    3.3000
+3.4000    4.4000
+</code></pre>
+<p>petal-length:</p>
+<p>x &#x3D;</p>
+<pre><code>1.0000    1.9000
+3.0000    4.4000
+4.5000    4.7000
+4.8000    4.9000
+5.0000    5.1000
+5.2000    6.9000
+</code></pre>
+<p>petal-width:</p>
+<p>x &#x3D;</p>
+<pre><code>0.1000    0.6000
+1.0000    1.3000
+1.4000    1.6000
+1.7000    1.7000
+1.8000    1.8000
+1.9000    2.5000
+</code></pre>
+<p>#后记<br>离散化是一种很重要的处理，因为很多分类算法都需要离散的训练数据。ChiMerge是一种通用且具有鲁棒性的离散化算法。<br>ChiMerge算法根据卡方检验进行分箱，将连续的值划分为多个区间来实现离散化。</p>
+<blockquote>
+<p>为什么采用卡方检验？    </p>
+</blockquote>
+<p>卡方检验确定的是观察到的频数与预期频数之间的偏离程度，最小卡方值确定的也就是最相似的分区。采用这样的方式能够有效地减少离散化过程中的信息损失，保留原始数据的特征</p>
+<blockquote>
+<p>评估ChiMerge算法的一些手段</p>
+</blockquote>
+<ol>
+<li>可视化分析<br>观察离散化后的属性值分布情况，如果离散化合理，不同区间内的数据应该有显著的差异性。</li>
+<li>信息增益<br>计算离散化后的属性对目标变量的信息增益。通过比较原始连续属性和离散化后的属性的信息增益，可以判断ChiMerge算法是否能够保留原始数据的重要信息。</li>
+<li>卡方统计量<br>计算离散化后相邻区间的卡方值，检验它们之间的差异是否具有统计值意义。如果卡方值显著高于预期阈值，说明离散化后的区间差异明显。</li>
+<li>分类或回归模型评估<br>使用离散化后的属性作为输入，训练分类或回归模型，比较模型在原始连续属性和离散化后的属性上的性能指标（如准确率、精确度等）。</li>
+</ol>
+<p>#参考文献<br>[1] Randy Kerber, “ChiMerge: Discretization of Numeric Attributes”, AAAI, p.123, 1992.<br>[2] <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/632385">https://developer.aliyun.com/article/632385</a></p>
 
     </div>
 
@@ -281,7 +397,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://example.com/2023/10/09/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" title="第一篇博客">http://example.com/2023/10/09/第一篇博客/</a>
+    <a href="http://example.com/2023/10/09/ChiMerge/" title="ChiMerge">http://example.com/2023/10/09/ChiMerge/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -292,7 +408,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%96%87%E7%AB%A0%E5%88%9B%E5%BB%BA/" rel="tag"># 文章创建</a>
+              <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96%E7%AE%97%E6%B3%95/" rel="tag"># 离散化算法</a>
+              <a href="/tags/matlab/" rel="tag"># matlab</a>
           </div>
 
         
@@ -300,11 +417,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2023/10/09/ChiMerge/" rel="next" title="ChiMerge">
-      ChiMerge <i class="fa fa-chevron-right"></i>
+    <a href="/2023/10/09/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" rel="prev" title="第一篇博客">
+      <i class="fa fa-chevron-left"></i> 第一篇博客
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
