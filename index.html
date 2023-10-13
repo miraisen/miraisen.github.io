@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-11 17:35:13" itemprop="dateModified" datetime="2023-10-11T17:35:13+08:00">2023-10-11</time>
+                <time title="修改时间：2023-10-13 23:40:01" itemprop="dateModified" datetime="2023-10-13T23:40:01+08:00">2023-10-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,147 +263,14 @@
       
           <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>ChiMerge是一种监督的、自底向上的数据离散化方法，依赖于卡方分析。</p>
 <h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>初始化过程分为排序和初始离散化。<br>首先根据训练样本对被离散属性的值进行排序，在每个样本前后放置一个区间边界。</p>
-<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>将具有最小卡方值的相邻区间合并在一起，直到满足确定的停止标准。<br><strong>卡方值的计算公式：</strong><br><img src="/.com//formula.png" alt="卡方值的计算"></p>
-<h2 id="分裂点"><a href="#分裂点" class="headerlink" title="分裂点"></a>分裂点</h2><p>分裂点是划分区间的点。</p>
-<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>示例：<br><code>5.1,3.5,1.4,0.2,Iris-setosa</code><br>分别代表：花萼长度(sepal-length)、花萼宽度(sepal-width)、花瓣长度(petal-length)、花瓣宽度(petal-width)、类别</p>
-<h2 id="输入数据处理"><a href="#输入数据处理" class="headerlink" title="输入数据处理"></a>输入数据处理</h2><p>输入的类别使用的是字符串，所以先将对类别编码以便后续处理。<br>使用<code>strcmp()</code>进行处理，该函数是C语言中的字符串比较函数，如果返回值为0则表示两字符串相等。<br>数据中有四种类型的数据，所以需要计算四次。因此将ChiMerge写成函数调用比较方便。   </p>
-<h2 id="ChiMerge-A"><a href="#ChiMerge-A" class="headerlink" title="ChiMerge(A)"></a>ChiMerge(A)</h2><p>为了计算卡方值，需要先计算期望频数（类别样本数*区间样本数&#x2F;总样本数）<br>需要注意，在计算期望频数时，如果某个期望频数为0，会导致计算卡方值时分母为0，将会引起错误。所以当期望频数为0时，应该改为一个较小的非零值以保证计算的稳定性。</p>
-<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><pre><code>function main
-[a,b,c,d,class] = textread(&#39;iris.txt&#39;,&#39;%f,%f,%f,%f,%s&#39;);
-%花萼长度，花萼宽度，花瓣长度，花瓣宽度，类别
-num = size(class);
-for i = 1:num(1)
-    if strcmp(class(i),&#39;Iris-setosa&#39;)==1
-        cls(i,1)=1;
-    elseif strcmp(class(i),&#39;Iris-versicolor&#39;)==1
-        cls(i,1)=2;
-    elseif strcmp(class(i),&#39;Iris-virginica&#39;)==1
-         cls(i,1)=3;
-    end
-end
-A = [a cls];
-B = [b cls];
-C = [c cls];
-D = [d cls];
-disp(&#39;sepal-length:&#39;);
-chimerge(A);
-disp(&#39;sepal-width:&#39;);
-chimerge(B);
-disp(&#39;petal-length:&#39;);
-chimerge(C);
-disp(&#39;petal-width:&#39;);
-chimerge(D);
-
-function X = chimerge(A)
-% X矩阵的第一、二行代表两个待合并区间中各个类别的频数，第三行代表每个区间中各个类别的的样本总数，第一列到第三列代表各个类别的频数，第四列到第六列代表各个类别的期望频数，第七列代表每个区间的样本总数
-y = sortrows(A,1);%按属性值排序
-ys = size(y);
-ylen = ys(1);%属性值个数
-x = [y(:,1),y(:,1)];%初始化区间矩阵，初始值设置为y的第一列属性值
-xs = size(x);
-xlen = xs(1);%区间个数
-while xlen &gt; 6 %停止条件为最大区间数为6
-    min = 999999;%保存最小卡方值，初始化为一个较大的值
-    for j = 1:xlen-1
-        ans = 0;
-        X = zeros(3,7);
-        %对于每个区间，统计在该区间内属于每个类别的样本数，存储在X矩阵中
-        for i = 1:ylen
-            if y(i,1)&gt;=x(j,1)&amp;&amp;y(i,1)&lt;=x(j,2)
-                X(1,y(i,2))=X(1,y(i,2))+1;
-            elseif y(i,1)&gt;=x(j+1,1)&amp;&amp;y(i,1)&lt;=x(j+1,2)
-                X(2,y(i,2))=X(2,y(i,2))+1;
-            end
-        end
-        %计算每个类别的样本个数
-        for i = 1:3
-            X(3,i) = X(1,i)+X(2,i);
-        end
-        %计算每个区间的样本个数，存储在X的第七列中
-        for i =1:3
-            X(i,7) = X(i,1)+X(i,2)+X(i,3);
-        end
-        %计算期望频数
-        for i = 1:2 %两个待合并区间
-            for k = 4:6 %每个类别的期望频数
-                X(i,k) = X(i,7)*X(3,k-3)/X(3,7);
-                if X(i,k) == 0%避免零分母的情况
-                    X(i,k) = 0.1;
-                end
-            end
-        end
-    %计算卡方值
-    for i = 1:2
-        for k = 1:3
-            ans = ans + ((X(i,k)-X(i,k+3))^2)/X(i,k+3);
-        end
-    end
-    if ans &lt;= min
-        min = ans;
-        key = j;%记录最小卡方值的区间
-    end
-    end
-    %合并区间，删除合并过的后一个区间
-    x(key,2) = x(key+1,2);
-    x(key+1,:) = [];
-    xlen = xlen-1;%更新区间数
-end
-x
-</code></pre>
-<h2 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h2><pre><code>&gt;&gt; ChiMerge
-</code></pre>
-<p>sepal-length:</p>
-<p>x &#x3D;</p>
-<pre><code>4.3000    4.8000
-4.9000    4.9000
-5.0000    5.4000
-5.5000    5.7000
-5.8000    7.0000
-7.1000    7.9000
-</code></pre>
-<p>sepal-width:</p>
-<p>x &#x3D;</p>
-<pre><code>2.0000    2.2000
-2.3000    2.4000
-2.5000    2.8000
-2.9000    2.9000
-3.0000    3.3000
-3.4000    4.4000
-</code></pre>
-<p>petal-length:</p>
-<p>x &#x3D;</p>
-<pre><code>1.0000    1.9000
-3.0000    4.4000
-4.5000    4.7000
-4.8000    4.9000
-5.0000    5.1000
-5.2000    6.9000
-</code></pre>
-<p>petal-width:</p>
-<p>x &#x3D;</p>
-<pre><code>0.1000    0.6000
-1.0000    1.3000
-1.4000    1.6000
-1.7000    1.7000
-1.8000    1.8000
-1.9000    2.5000
-</code></pre>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>离散化是一种很重要的处理，因为很多分类算法都需要离散的训练数据。ChiMerge是一种通用且具有鲁棒性的离散化算法。<br>ChiMerge算法根据卡方检验进行分箱，将连续的值划分为多个区间来实现离散化。</p>
-<blockquote>
-<p>为什么采用卡方检验？    </p>
-</blockquote>
-<p>卡方检验确定的是观察到的频数与预期频数之间的偏离程度，最小卡方值确定的也就是最相似的分区。采用这样的方式能够有效地减少离散化过程中的信息损失，保留原始数据的特征</p>
-<blockquote>
-<p>评估ChiMerge算法的一些手段</p>
-</blockquote>
-<ol>
-<li>可视化分析<br>观察离散化后的属性值分布情况，如果离散化合理，不同区间内的数据应该有显著的差异性。</li>
-<li>信息增益<br>计算离散化后的属性对目标变量的信息增益。通过比较原始连续属性和离散化后的属性的信息增益，可以判断ChiMerge算法是否能够保留原始数据的重要信息。</li>
-<li>卡方统计量<br>计算离散化后相邻区间的卡方值，检验它们之间的差异是否具有统计值意义。如果卡方值显著高于预期阈值，说明离散化后的区间差异明显。</li>
-<li>分类或回归模型评估<br>使用离散化后的属性作为输入，训练分类或回归模型，比较模型在原始连续属性和离散化后的属性上的性能指标（如准确率、精确度等）。</li>
-</ol>
-<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Randy Kerber, “ChiMerge: Discretization of Numeric Attributes”, AAAI, p.123, 1992.<br>[2] <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/632385">https://developer.aliyun.com/article/632385</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/09/ChiMerge/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
