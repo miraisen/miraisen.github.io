@@ -22,17 +22,23 @@
     var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="It&#39;s Our Night to Shine">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Miraisen">
-<meta property="og:url" content="http://miraisen.github.io/categories/%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/index.html">
+  <meta name="description" content="前言Python中有生成二维码的库，使用的最多的是qrcode!&lt;– more –&gt; 实现基础使用函数    qrcode.make()生成图像。    .save(‘xx.jpg’)函数保存生成的图像。 设置二维码颜色大小参数首先创建QRcode对象    qr &#x3D; qrcode.QRcode(version &#x3D; , error_correction&#x3D;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二维码生成">
+<meta property="og:url" content="http://miraisen.github.io/2023/10/16/%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%94%9F%E6%88%90/index.html">
 <meta property="og:site_name" content="Miraisen">
-<meta property="og:description" content="It&#39;s Our Night to Shine">
+<meta property="og:description" content="前言Python中有生成二维码的库，使用的最多的是qrcode!&lt;– more –&gt; 实现基础使用函数    qrcode.make()生成图像。    .save(‘xx.jpg’)函数保存生成的图像。 设置二维码颜色大小参数首先创建QRcode对象    qr &#x3D; qrcode.QRcode(version &#x3D; , error_correction&#x3D;q">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://miraisen.github.io/.io//qrcode%5Clogoqrcode.png">
+<meta property="article:published_time" content="2023-10-16T09:13:22.000Z">
+<meta property="article:modified_time" content="2023-10-17T03:31:28.936Z">
 <meta property="article:author" content="kaisei">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="IoT">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://miraisen.github.io/.io//qrcode%5Clogoqrcode.png">
 
-<link rel="canonical" href="http://miraisen.github.io/categories/%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/">
+<link rel="canonical" href="http://miraisen.github.io/2023/10/16/%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%94%9F%E6%88%90/">
 
 
 <script id="page-configurations">
@@ -40,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 语言学习 | Miraisen</title>
+  <title>二维码生成 | Miraisen</title>
   
 
 
@@ -186,51 +192,191 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">语言学习
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2023/10/16/%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%94%9F%E6%88%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          二维码生成
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-16 17:13:22" itemprop="dateCreated datePublished" datetime="2023-10-16T17:13:22+08:00">2023-10-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-17 11:31:28" itemprop="dateModified" datetime="2023-10-17T11:31:28+08:00">2023-10-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%A0%87%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">物联网标识</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Python中有生成二维码的库，使用的最多的是qrcode<br>!&lt;– more –&gt;</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>使用函数<br>    qrcode.make()<br>生成图像。<br>    .save(‘xx.jpg’)<br>函数保存生成的图像。</p>
+<h2 id="设置二维码颜色大小参数"><a href="#设置二维码颜色大小参数" class="headerlink" title="设置二维码颜色大小参数"></a>设置二维码颜色大小参数</h2><p>首先创建QRcode对象<br>    qr &#x3D; qrcode.QRcode(version &#x3D; , error_correction&#x3D;qrcode.constants.ERROR_CORRECT_L, box_size&#x3D; , border&#x3D;)<br>参数设置：<br>version: 1-40 控制QR码的大小，实际上是二维码的格子矩阵大小  </p>
+<blockquote>
+<p>最小是21×21，最大是177×177。   </p>
+</blockquote>
+<p>error_correction: 二维码错误容许率，默认是M，容许小于15%的错误率</p>
+<blockquote>
+<p>L: 小于7%<br>Q: 小于25%<br>H: 小于30%  </p>
+</blockquote>
+<p>box_size: 每个小格子包含的像素数量，一般设为10<br>border: 二维码到图片边框的小格子数，默认值为4  </p>
+<h2 id="实例化二维码生成类"><a href="#实例化二维码生成类" class="headerlink" title="实例化二维码生成类"></a>实例化二维码生成类</h2><pre><code>import qrcode  
+qr = qrcode.QRCode(version=1,error_correction=qrcode.constants.ERROR_CPRRECT_L,box_size=10,border=4,)  
+#设置数据  
+data = &quot;&quot;  
+qr.add_data(data=data)  
+#启用颜色设置
+qr.make(fit=True)  
+img = qr.make_image(fill_color=&quot;green&quot;,back_color=&quot;white&quot;)  
+#生成保存图片
+img.save(&#39;uestc.jpg&#39;)  
+#显示  
+img.show()
+</code></pre>
+<h2 id="嵌入logo"><a href="#嵌入logo" class="headerlink" title="嵌入logo"></a>嵌入logo</h2><p>需要对要嵌入的图片进行处理，调整尺寸使其符合所需大小，然后通过paste方法将其粘贴到二维码的中心位置</p>
+<pre><code>from PIL import Image
+import qrcode, os
+
+url = &#39;电子科技大学&#39;
+qrcodename = &#39;logoqrcode&#39;
+
+
+#  def create_qrcode(url, qrcodename):
+qr=qrcode.QRCode (version=1, error_correction=qrcode.ERROR_CORRECT_H, box_size=8, border=1,)
+qr.add_data(url)
+qr.make(fit=True)
+img = qr.make_image()
+img = img.convert(&quot;RGBA&quot;) # 二维码设为彩色
+logo = Image.open(&#39;logo.png&#39;) # 传 gif 生成的二维码也是没有动态效果的
+w , h = img.size
+logo_w , logo_h = logo.size
+factor = 4 # 默认 logo 最大设为图片的四分之一
+s_w = int(w / factor)
+s_h = int(h / factor)
+if logo_w &gt; s_w or logo_h &gt; s_h:
+    logo_w = s_w
+    logo_h = s_h
+logo = logo.resize((logo_w, logo_h), Image.ANTIALIAS)
+l_w = int((w - logo_w) / 2)
+l_h = int((h - logo_h) / 2)
+logo = logo.convert(&quot;RGBA&quot;)
+img.paste(logo, (l_w, l_h), logo)
+img.show()
+img.save(os.getcwd()+&#39;/&#39; + qrcodename + &#39;.png&#39;, quality=100)
+</code></pre>
+<p>输出结果：<br><img src="/.io//qrcode%5Clogoqrcode.png"></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] 管小卫.基于Python 的二维码生成与识别[J].科学技术创新,2020,(25): 99-100</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-10-13T23:44:32+08:00"
-              content="2023-10-13">
-          10-13
-        </time>
-      </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kaisei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://miraisen.github.io/2023/10/16/%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%94%9F%E6%88%90/" title="二维码生成">http://miraisen.github.io/2023/10/16/二维码生成/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/10/13/%E9%9B%85%E6%80%9D%E8%80%83%E8%AF%95%E5%AD%A6%E4%B9%A0%E7%BD%91%E7%AB%99/" itemprop="url">
-            <span itemprop="name">雅思考试学习网站</span>
-          </a>
-      </div>
 
-    </header>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/IoT/" rel="tag"># IoT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/15/insert_images/" rel="prev" title="insert_images">
+      <i class="fa fa-chevron-left"></i> insert_images
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -283,6 +429,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80"><span class="nav-number">2.1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%BA%8C%E7%BB%B4%E7%A0%81%E9%A2%9C%E8%89%B2%E5%A4%A7%E5%B0%8F%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">设置二维码颜色大小参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E4%BA%8C%E7%BB%B4%E7%A0%81%E7%94%9F%E6%88%90%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">实例化二维码生成类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5logo"><span class="nav-number">2.4.</span> <span class="nav-text">嵌入logo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
