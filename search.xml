@@ -4,11 +4,38 @@
   
     
     <entry>
+      <title>Python数据挖掘</title>
+      <link href="/2023/10/26/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+      <url>/2023/10/26/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>数据挖掘（Data Ming）就是从大量不完整、有噪声、模糊、随机的实际应用数据中，提取隐含在其中、人们事先不知道、但是又潜在有用的信息和知识的过程。</p><p>实际上是一个决策支持过程，对数据进行高度自动化的分析从而做出归纳性推理，从中挖掘出潜在的模式，辅助决策者调整策略、减少风险、做出正确的决策。</p><span id="more"></span><p>数据挖掘有别于数据分析，数据分析是人为驱动的，数据挖掘是数据驱动的。</p><p>Ex.垃圾邮件的判断和筛选</p><p>​数据分析方法需要针对邮件的发送人、标题、关键字等因素进行分析，如果含有违法违规信息则判定为垃圾邮件；</p><p>​数据挖掘方法只需要把标注是否是垃圾邮件的数据交给模型学习，训练成功后就可以用来自动识别垃圾邮件。</p><p>Python语言语法清晰、逻辑性强、易读性高，且初始安装环境就已经附带许多高级数据类型，便于操作。</p><h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><ul><li><p>分类</p><p>找出样本数据集的共同特征，将数据集划分为不同的类型。</p><p>目的：寻找重要变量因素、了解族群特征或建立分类规则。</p><p>应用：商品分类、垃圾邮件过滤、新闻分类、智能推荐等。</p><p>常用算法：决策树、朴素贝叶斯、K近邻和支持向量机。</p></li><li><p>回归</p><p>输入数据往往为数值型。</p><p>目的是预测输入内容的数值，或者说找到一条尽可能接近数据集的各个点的最优拟合线。</p><p>应用：预测销售趋势、房价变动、产品生命周期分析、股市成交额及天气状况。</p></li><li><p>关联</p><p>又称关联规则挖掘。在大规模数据集中寻找数据之间关系的算法。</p><p>目的：发现频繁项集，从频繁项集中发现关联规则。关联规则反映了物品和其他物品之间的关联性。即给定一组事务，根据事务中物品项的出现情况预测物品项出现的规则。</p><p>应用：预测客户需求、关联推荐营销、客户交叉营销、风险防范等。</p><p>常用算法：Apriori、FP-Growth</p></li><li><p>聚类</p><p>不给定数据特征种类，根据数据间相似度进行数据集簇，使得簇内距离最小化、簇间距离最大化的分析方法。</p><p>应用：根据一些特定的症状归纳特定的疾病，通过对住宅区的居民信息聚类来确定店铺的选址。</p><p>常用算法：K-Means算法、凝聚聚类算法、DBSCAN算法</p></li><li><p>异常检测</p><p>找出数据集中与正常数据差异较大的数据点（离群点或异常值）。</p><p>常用检测方法：统计方法检测、距离检测、密度检测、数据可视化检测和无监督模型检测。</p><p>聚类分析也是常见的用于异常检测的方法。</p><p>应用：识别诈骗、防范风险、发现新的营销热点。</p></li></ul><h2 id="Scikit-learn-构建数据挖掘模型"><a href="#Scikit-learn-构建数据挖掘模型" class="headerlink" title="Scikit-learn 构建数据挖掘模型"></a>Scikit-learn 构建数据挖掘模型</h2><p>支持常用的机器学习算法——分类、回归、聚类与降维，提供了特征提取、数据处理和模型评估等功能模块。</p><p>Sklearn封装了大量的机器学习算法，并内置了大量数据集。</p><p>步骤：</p><p>数据获取→数据预处理→数据集拆分→构建模型→训练模型→评估模型→保存模型→使用模型</p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1]  王仁武 Python数据科学基础与实践</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据挖掘 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Data Science </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>无线通信安全</title>
       <link href="/2023/10/20/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8/"/>
       <url>/2023/10/20/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8/</url>
       
-        <content type="html"><![CDATA[<h2 id="手机接入和传输安全"><a href="#手机接入和传输安全" class="headerlink" title="手机接入和传输安全"></a>手机接入和传输安全</h2><p>无线通信物理联接缺失，更易于干扰，窃听避免、网络管理、安全接入的边界及方式相较有线网络方式更加难以控制。</p><img src="/.io//blog\source\_posts\wireless_communication\wireless_net.png" alt="wireless_net"><p>用户的SIM卡和归宿网络的HLR&#x2F;AuC共享一个安全密钥Ki（64bits， 128bits），基于该密钥，网络可以对用户进行认证，但用户无法认证网络。</p><p>基站和手机间可以对无线链路进行加密。</p><span id="more"></span><p><strong>CA</strong>：</p><blockquote><p>Certificate Authority 证书颁发机构。即颁发数字证书的机构，是负责发放和管理数字证书的权威机构，并作为电子商务交易中受信任的第三方，承担公钥体系中公钥的合法性检验的责任。</p></blockquote><p><strong>AAA</strong>：</p><blockquote><p>AAA是Authentication(认证)、Authorization(授权)和Accounting(计费)的简称。</p><p>AAA服务器的功能：</p><ul><li>授予或拒绝对网络的访问</li><li>为用户提供不同级别的授权</li><li>记录所有建立网络连接的尝试</li></ul><p>AAA服务器是保障Wi-Fi安全的必备，它用每个用户或设备的唯一凭证取代了单一的预共享密钥（PSK）</p></blockquote><p><strong>网关</strong>：</p><blockquote><p>一个网络连接到另一个网络的接口，可以支持不同协议之间的转换，实现不同协议网络之间的互联。</p></blockquote><p><strong>GGSN</strong>：</p><blockquote><p>gateway GPRS Support Node</p><p>是GPRS网络中的关键部分，用于GPRS网络和外部分组交换网络（Internet, X.25, wimax)之间的交互。</p><p>从外部网络来看，GGSN就是一个子网的路由器，因为GGSN对外部网络隐藏了GPRS的底层结构。当GGSN接收到一个指定用户的数据时，检查用户是否是活动的。如果是，GGSN将数据转发给SGSN来服务用户，如果用户是不活动的，则丢弃数据包。反过来，GGSN将用户的数据包向外传递出去。</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h2 id="手机接入和传输安全"><a href="#手机接入和传输安全" class="headerlink" title="手机接入和传输安全"></a>手机接入和传输安全</h2><p>无线通信物理联接缺失，更易于干扰，窃听避免、网络管理、安全接入的边界及方式相较有线网络方式更加难以控制。</p><img src="/.io//blog\source\_posts\wireless_communication\wireless_net.png" alt="wireless_net"><p>用户的SIM卡和归宿网络的HLR&#x2F;AuC共享一个安全密钥Ki（64bits， 128bits），基于该密钥，网络可以对用户进行认证，但用户无法认证网络。</p><p>基站和手机间可以对无线链路进行加密。</p><span id="more"></span><p><strong>CA</strong>：</p><blockquote><p>Certificate Authority 证书颁发机构。即颁发数字证书的机构，是负责发放和管理数字证书的权威机构，并作为电子商务交易中受信任的第三方，承担公钥体系中公钥的合法性检验的责任。</p></blockquote><p><strong>AAA</strong>：</p><blockquote><p>AAA是Authentication(认证)、Authorization(授权)和Accounting(计费)的简称。</p><p>AAA服务器的功能：</p><ul><li>授予或拒绝对网络的访问</li><li>为用户提供不同级别的授权</li><li>记录所有建立网络连接的尝试</li></ul><p>AAA服务器是保障Wi-Fi安全的必备，它用每个用户或设备的唯一凭证取代了单一的预共享密钥（PSK）</p></blockquote><p><strong>网关</strong>：</p><blockquote><p>一个网络连接到另一个网络的接口，可以支持不同协议之间的转换，实现不同协议网络之间的互联。</p></blockquote><p><strong>GGSN</strong>：</p><blockquote><p>gateway GPRS Support Node</p><p>是GPRS网络中的关键部分，用于GPRS网络和外部分组交换网络（Internet, X.25, wimax)之间的交互。</p><p>从外部网络来看，GGSN就是一个子网的路由器，因为GGSN对外部网络隐藏了GPRS的底层结构。当GGSN接收到一个指定用户的数据时，检查用户是否是活动的。如果是，GGSN将数据转发给SGSN来服务用户，如果用户是不活动的，则丢弃数据包。反过来，GGSN将用户的数据包向外传递出去。</p></blockquote><h2 id="2G和4G的比较"><a href="#2G和4G的比较" class="headerlink" title="2G和4G的比较"></a>2G和4G的比较</h2><p>• 2G单向认证，64比特密钥，加密的A5算法有缺陷，系统容易攻破</p><p>​A5算法是一种流mi</p><p>• 4G采用双向认证，128-256比特的密钥，采用AES、ZHU、或SHOW算法，系统强壮很多。</p><p>​</p>]]></content>
       
       
       <categories>
