@@ -192,6 +192,520 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/04/11/%E5%8D%95%E8%B0%83%E6%A0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/11/%E5%8D%95%E8%B0%83%E6%A0%88/" class="post-title-link" itemprop="url">单调栈</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-11 20:45:38 / 修改时间：21:05:38" itemprop="dateCreated datePublished" datetime="2024-04-11T20:45:38+08:00">2024-04-11</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>346</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <span id="more"></span>
+
+<p>739.每日温度</p>
+<p>暴力解法会超过时间限制。</p>
+<p>维护一个单调栈，栈中存放的是温度数组各元素的下标而不是温度值，但单调性根据温度值来维护。</p>
+<p>核心代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l-<span class="number">1</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">while</span> st <span class="keyword">and</span> temperatures[st[-<span class="number">1</span>]] &lt;= temperatures[i]:</span><br><span class="line">                st.pop()</span><br><span class="line">            <span class="keyword">if</span> st:</span><br><span class="line">                answer[i] = st[-<span class="number">1</span>] - i</span><br><span class="line">            st.append(i)</span><br></pre></td></tr></table></figure>
+
+<p>比如输入是30，60，90。单调栈存的就是 [3 2 1] 栈顶对应的温度值为30。为了保证先入后出，从后往前遍历。存下标的话，因为我们有原数组，相当于可以映射过去也就有了实际的温度值，如果存实际的温度值就会丢失下标的信息量，并且答案实际也是要从下标推出来的，所以实际上是从单调栈线性推出答案，这就是单调栈的优越性。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/04/09/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95Web%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/09/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95Web%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">实现简单Web服务器</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-09 22:17:02" itemprop="dateCreated datePublished" datetime="2024-04-09T22:17:02+08:00">2024-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-10 22:02:25" itemprop="dateModified" datetime="2024-04-10T22:02:25+08:00">2024-04-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前急需开发经验并且Python已经到了可以进阶的阶段。该项目和HTTP协议相关，故选此项目进行学习。</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><p>CSS： Cascading Style Sheets，层叠样式表，是一种用来为结构化文档（例如HTML文档或XML应用）添加样式(字体、间距和颜色等)的计算机语言。</p>
+<p>HTML： HyperText Markup Language，超文本标记语言，是一种用于创建网页的标准标记语言</p>
+<p>浏览器背后的这些文件都是通过HTTP从服务器传输到浏览器（即客户端）。</p>
+<p>HTTP： HyperText Transfer Protocol，遵循从客户端发出请求到服务器并等待响应的模型，因此也被认为是“请求–响应协议”。</p>
+<p>DNS是一个分布式数据库，DNS服务器集群是分层级的，没有任何一个单一的DNS服务器中包含所有数据。</p>
+<h2 id="无状态的（Statelessness）"><a href="#无状态的（Statelessness）" class="headerlink" title="无状态的（Statelessness）"></a><strong>无状态的（Statelessness）</strong></h2><p>协议的每一个请求&#x2F;响应周期与前一个都是互相独立的。</p>
+<p>无状态协议对于服务器资源和易用性的影响：服务器不需要再各次请求之间保留状态信息，请求出问题系统不需要清理。</p>
+<p>但也因此HTTP协议很难构建有状态的应用，开发人员需要模拟web应用中的有状态体验，比如如何维持用户登录状态，怎么区分用户。</p>
+<p>Web是灵活的、去中心化的，但也难以控制，安全性难以保证，构建应用并不简单。</p>
+<p>URL： Uniform Resource Locator，统一资源定位符。由URL模式+资源路径或主机+URL路径构成。</p>
+<p>常见的URL模式包括HTTP、FTP、Mailto、Git</p>
+<p>URL可以包含一个主机用来监听HTTP请求的端口号。Web客户端用来监听HTTP请求的默认端口号是80，如果一个URL中没有指定其他的端口号，默认为80。</p>
+<h2 id="查询字符串-参数"><a href="#查询字符串-参数" class="headerlink" title="查询字符串&#x2F;参数"></a>查询字符串&#x2F;参数</h2><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.example.com?search=ruby&amp;results=10</span><br></pre></td></tr></table></figure>
+
+<p>? 为保留字，标识着查询字符串的开始</p>
+<p>search&#x3D;ruby  results &#x3D; 10  都是参数的键值对</p>
+<p>&amp; 保留字，需要给查询字符串添加参数时使用</p>
+<p>查询字符串的限制：有最大长度、键值对会显示（不能用来传输敏感信息）、无法使用空格和特殊字符（必须用URL编码替代）</p>
+<h2 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h2><p>URL默认只接受ASCII码，不安全的或者不是ASCII码的字符要进行转义或者编码。</p>
+<p>HTTP GUI工具：</p>
+<p><a target="_blank" rel="noopener" href="https://www.telerik.com/fiddler">https://www.telerik.com/fiddler</a></p>
+<p>现代浏览器查看HTTP请求和响应的方法叫审查器。</p>
+<h1 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h1><ul>
+<li>HTTP协议基本原理</li>
+<li>Python3实现网络开发</li>
+<li>Web服务请求响应</li>
+<li>CGI协议</li>
+<li>响应错误处理实现</li>
+<li>面向对象方法重构代码</li>
+<li>Web服务器框架</li>
+</ul>
+<p>Web服务器的基本概念：</p>
+<p>​    1、等待有人连接服务器并发送一个HTTP请求</p>
+<p>​    2、解析请求</p>
+<p>​    3、了解该请求希望请求的内容</p>
+<p>​    4、服务器根据请求抓取需要的数据（从本地读取或者动态生成）</p>
+<p>​    5、将数据格式化为请求需要的格式</p>
+<p>​    6、返回HTTP响应</p>
+<p>使用Python标准库中的BaseHTTPServer模块处理步骤1、2、6</p>
+<p>终端打印的响应信息：（显示了响应报文的全部内容）</p>
+<p><img src="/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95Web%E6%9C%8D%E5%8A%A1%E5%99%A8/image-20240409230905091.png" alt="image-20240409230905091"></p>
+<p><img src="/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95Web%E6%9C%8D%E5%8A%A1%E5%99%A8/image-20240410180834812.png" alt="image-20240410180834812"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/04/04/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/04/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/" class="post-title-link" itemprop="url">无重复字符的最长子串</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-04 14:52:29 / 修改时间：15:33:45" itemprop="dateCreated datePublished" datetime="2024-04-04T14:52:29+08:00">2024-04-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>LCR 016</p>
+<p>给定一个字符串s，请你找出其中不含有重复字符的最长连续子字符串的长度。</p>
+<blockquote>
+<p>注意是子串，不是子序列。子序列不要求连续</p>
+</blockquote>
+<h1 id="自解"><a href="#自解" class="headerlink" title="自解:"></a>自解:</h1><p>采用双指针，一个从第一个字符开始向后遍历，第二个指针在第一个指针不变的基础上向后遍历，这样相当于所有的子串都能被遍历到。</p>
+<p>感觉逻辑上没有问题不代表代码没有问题 &#x3D;)</p>
+<p>一开始想用嵌套for循环，然后判断如果第二个指针指向的字符不在已更新的子串中并且长度大于已记录的最大值就进行更新，如果在已更新的字符串中就放弃该子串，将S更新为空。</p>
+<p>这种思路貌似没有问题，但是其实有很多逻辑上的缺陷，导致根本不可能得到正确答案。首先，S的更新并不全面，判断并没有包含全部的情况。然后就是对字符串不熟练导致调试花了很多时间。</p>
+<p><img src="/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/image-20240404150442148.png" alt="image-20240404150442148"></p>
+<p>Python中字符串的切片：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">字符串[开始索引:结束索引:步长]</span><br></pre></td></tr></table></figure>
+
+<p>属于左闭右开的区间，所以这里取s[i:j] 根本没有取到s[j]。子串的更新上就已经不对了。</p>
+<p>对代码进行更改，依然是双指针的思想，不同的是，双指针都不用for循环进行递加，而是根据判断条件进行自加。</p>
+<p>利用子串的连续性，用append而不是切片的方式进行子串构建。而且并不是大于最大长度才更新子串，子串是一直更新的，但大于最大长度才会更新最大值。如果j指向的字符在子串中说明不能再加了，这就是从i的位置能得到的最长子串。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lengthOfLongestSubstring</span>(<span class="params">self, s</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        maxlength = <span class="number">1</span>                                </span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        j = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> s == <span class="string">&quot;&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        S =  [s[i]]</span><br><span class="line">        <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">if</span> s[j] <span class="keyword">not</span> <span class="keyword">in</span> S:</span><br><span class="line">                S.append(s[j])</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(S) &gt; maxlength:</span><br><span class="line">                    maxlength = <span class="built_in">len</span>(S)</span><br><span class="line">            <span class="keyword">elif</span> s[j] <span class="keyword">in</span> S:</span><br><span class="line">                i = i + <span class="number">1</span></span><br><span class="line">                S = [s[i]]</span><br><span class="line">                j = i</span><br><span class="line">            j = j + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> maxlength</span><br></pre></td></tr></table></figure>
+
+<h1 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h1><p>依次递增地枚举子串的起始位置，那么子串的结束位置也是递增的。根据这个特点才能使用滑动窗口。</p>
+<p>使用两个指针表示字符串中某个子串（或窗口）的左右边界，左指针代表着枚举子串的起始位置，右指针为子串的结束位置（不到重复字符可以继续递增）</p>
+<p>枚举的过程和自解的想法是相似的。</p>
+<h3 id="判断重复字符"><a href="#判断重复字符" class="headerlink" title="判断重复字符"></a>判断重复字符</h3><p>使用数据结构来判断是否有重复的字符，常用的数据结构为<strong>哈希集合</strong>。C++中的 std::unordered_set，Java中的HashSet，Python中的set，JavaScript中的Set。在左指针向右移动的时候，我们从哈希集合中移除一个字符，在右指针向右移动的时候，我们往哈希集合中添加一个字符。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lengthOfLongestSubstring</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 哈希集合，记录每个字符是否出现过</span></span><br><span class="line">        occ = <span class="built_in">set</span>()</span><br><span class="line">        n = <span class="built_in">len</span>(s)</span><br><span class="line">        <span class="comment"># 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动</span></span><br><span class="line">        rk, ans = -<span class="number">1</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            <span class="keyword">if</span> i != <span class="number">0</span>:</span><br><span class="line">                <span class="comment"># 左指针向右移动一格，移除一个字符</span></span><br><span class="line">                occ.remove(s[i - <span class="number">1</span>])</span><br><span class="line">            <span class="keyword">while</span> rk + <span class="number">1</span> &lt; n <span class="keyword">and</span> s[rk + <span class="number">1</span>] <span class="keyword">not</span> <span class="keyword">in</span> occ:</span><br><span class="line">                <span class="comment"># 不断地移动右指针</span></span><br><span class="line">                occ.add(s[rk + <span class="number">1</span>])</span><br><span class="line">                rk += <span class="number">1</span></span><br><span class="line">            <span class="comment"># 第 i 到 rk 个字符是一个极长的无重复字符子串</span></span><br><span class="line">            ans = <span class="built_in">max</span>(ans, rk - i + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+
+<p>set() 函数创建一个无序不重复元素集，会删除重复元素。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>这题是4.2腾讯测试与质量管理岗一面的考题。总体上感觉做法和自解差不多…但是当时不知道这个就叫滑动窗口。面试官提醒了用滑动窗口，但是碍于自身代码实力确实太弱，没改出来，也因为这个导致一面就挂了吧。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/03/30/leetcode%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/30/leetcode%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AF%87/" class="post-title-link" itemprop="url">leetcode字符串篇</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-30 23:09:44" itemprop="dateCreated datePublished" datetime="2024-03-30T23:09:44+08:00">2024-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-31 00:01:29" itemprop="dateModified" datetime="2024-03-31T00:01:29+08:00">2024-03-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>477</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本篇为Leetcode做题过程中字符串篇的总结和纠错等记录。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/03/30/leetcode%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AF%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/03/25/LeetCode%E6%95%B0%E7%BB%84%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/25/LeetCode%E6%95%B0%E7%BB%84%E7%AF%87/" class="post-title-link" itemprop="url">LeetCode数组篇</a>
+        </h2>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-25 21:30:28" itemprop="dateCreated datePublished" datetime="2024-03-25T21:30:28+08:00">2024-03-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-12 11:41:23" itemprop="dateModified" datetime="2024-04-12T11:41:23+08:00">2024-04-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index"><span itemprop="name">Leetcode</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本篇为Leetcode做题过程中数组篇的总结和纠错等记录。</p>
+<p>[TOC]</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/03/25/LeetCode%E6%95%B0%E7%BB%84%E7%AF%87/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/03/23/%E7%BB%9F%E8%AE%A1%E6%A1%8C%E9%9D%A2%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C%E6%95%B0%E5%AD%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -501,7 +1015,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-23 21:32:49" itemprop="dateModified" datetime="2024-03-23T21:32:49+08:00">2024-03-23</time>
+                <time title="修改时间：2024-04-07 22:19:46" itemprop="dateModified" datetime="2024-04-07T22:19:46+08:00">2024-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -519,14 +1033,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.4k</span>
+              <span>9.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -658,481 +1172,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2023/10/26/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaisei">
-      <meta itemprop="description" content="It's Our Night to Shine">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Miraisen">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/26/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" class="post-title-link" itemprop="url">Python数据挖掘</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-26 20:44:41" itemprop="dateCreated datePublished" datetime="2023-10-26T20:44:41+08:00">2023-10-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-09 20:40:55" itemprop="dateModified" datetime="2023-12-09T20:40:55+08:00">2023-12-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" itemprop="url" rel="index"><span itemprop="name">数据挖掘</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>数据挖掘（Data Mining）就是从大量不完整、有噪声、模糊、随机的实际应用数据中，提取隐含在其中、人们事先不知道、但是又潜在有用的信息和知识的过程。</p>
-<p>实际上是一个决策支持过程，对数据进行高度自动化的分析从而做出归纳性推理，从中挖掘出潜在的模式，辅助决策者调整策略、减少风险、做出正确的决策。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/26/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2023/10/20/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaisei">
-      <meta itemprop="description" content="It's Our Night to Shine">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Miraisen">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/20/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8/" class="post-title-link" itemprop="url">无线通信安全</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-20 19:45:19" itemprop="dateCreated datePublished" datetime="2023-10-20T19:45:19+08:00">2023-10-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-10 22:55:17" itemprop="dateModified" datetime="2023-11-10T22:55:17+08:00">2023-11-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index"><span itemprop="name">通信</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>[TOC]</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/20/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E5%AE%89%E5%85%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2023/10/16/qrcode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaisei">
-      <meta itemprop="description" content="It's Our Night to Shine">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Miraisen">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/16/qrcode/" class="post-title-link" itemprop="url">qrcode</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-16 17:13:22" itemprop="dateCreated datePublished" datetime="2023-10-16T17:13:22+08:00">2023-10-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-18 15:18:17" itemprop="dateModified" datetime="2023-10-18T15:18:17+08:00">2023-10-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%A0%87%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">物联网标识</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Python中有生成二维码的库，使用的最多的是qrcode</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/16/qrcode/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2023/10/15/insert_images/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaisei">
-      <meta itemprop="description" content="It's Our Night to Shine">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Miraisen">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/15/insert_images/" class="post-title-link" itemprop="url">insert_images</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-10-15 10:44:48 / 修改时间：11:28:51" itemprop="dateCreated datePublished" datetime="2023-10-15T10:44:48+08:00">2023-10-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/blog/" itemprop="url" rel="index"><span itemprop="name">blog</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>256</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>插入图片测试</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/15/insert_images/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2023/10/14/%E4%BF%A1%E6%81%AF%E7%B4%A0%E5%85%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="kaisei">
-      <meta itemprop="description" content="It's Our Night to Shine">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Miraisen">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/14/%E4%BF%A1%E6%81%AF%E7%B4%A0%E5%85%BB/" class="post-title-link" itemprop="url">信息素养</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-14 10:01:33" itemprop="dateCreated datePublished" datetime="2023-10-14T10:01:33+08:00">2023-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-15 10:37:35" itemprop="dateModified" datetime="2023-10-15T10:37:35+08:00">2023-10-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%AF%94%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">比赛</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="政府开放资源"><a href="#政府开放资源" class="headerlink" title="政府开放资源"></a>政府开放资源</h1><h2 id="思政与党史"><a href="#思政与党史" class="headerlink" title="思政与党史"></a>思政与党史</h2><p>习近平系列重要讲话数据库 <a target="_blank" rel="noopener" href="http://jhsjk.people.cn/">http://jhsjk.people.cn/</a><br>新华社官网的学习进行时专栏 <a target="_blank" rel="noopener" href="http://www.news.cn/politics/xxjxs/index.htm">http://www.news.cn/politics/xxjxs/index.htm</a><br>人民网官网的学习路上专栏学习路上 <a target="_blank" rel="noopener" href="http://cpc.people.com.cn/xuexi/">http://cpc.people.com.cn/xuexi/</a><br>党史学习教育官方网站 <a target="_blank" rel="noopener" href="http://dangshi.people.com.cn/">http://dangshi.people.com.cn/</a>   </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/14/%E4%BF%A1%E6%81%AF%E7%B4%A0%E5%85%BB/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1204,20 +1243,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1253,12 +1292,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">27k</span>
+    <span title="站点总字数">35k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">24 分钟</span>
+    <span title="站点阅读时长">32 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
