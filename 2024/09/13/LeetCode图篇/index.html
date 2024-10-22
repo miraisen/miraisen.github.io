@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons8-orange-neon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons8-orange-neon-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="[TOC] 图篇的内容：  图的表示 BFS DFS 最小生成树问题 最短路径问题 图的连通性  最短路多源最短路题目描述在一个大城市中，环卫工人小C和他的团队负责清理城市的生活垃圾。整个城市被分为了若干个区域，每个区域被划分为m行n列的网格。环卫工人需要将每个居民区的垃圾运输到最近的垃圾回收站。这个任务要求计算所有居民区垃圾送到回收站的最小总距离。 输入第一行为两个整数m和n，表示网格的行数和列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode图篇">
+<meta property="og:url" content="http://miraisen.github.io/2024/09/13/LeetCode%E5%9B%BE%E7%AF%87/index.html">
+<meta property="og:site_name" content="Miraisen">
+<meta property="og:description" content="[TOC] 图篇的内容：  图的表示 BFS DFS 最小生成树问题 最短路径问题 图的连通性  最短路多源最短路题目描述在一个大城市中，环卫工人小C和他的团队负责清理城市的生活垃圾。整个城市被分为了若干个区域，每个区域被划分为m行n列的网格。环卫工人需要将每个居民区的垃圾运输到最近的垃圾回收站。这个任务要求计算所有居民区垃圾送到回收站的最小总距离。 输入第一行为两个整数m和n，表示网格的行数和列">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-13T07:52:08.000Z">
+<meta property="article:modified_time" content="2024-10-16T12:49:29.785Z">
+<meta property="article:author" content="kaisei">
+<meta property="article:tag" content="Graph">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://miraisen.github.io/2024/09/13/LeetCode%E5%9B%BE%E7%AF%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>LeetCode图篇 | Miraisen</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Miraisen</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/09/13/LeetCode%E5%9B%BE%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode图篇
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-09-13 15:52:08" itemprop="dateCreated datePublished" datetime="2024-09-13T15:52:08+08:00">2024-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-16 20:49:29" itemprop="dateModified" datetime="2024-10-16T20:49:29+08:00">2024-10-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>[TOC]</p>
+<p>图篇的内容：</p>
+<ul>
+<li>图的表示</li>
+<li>BFS</li>
+<li>DFS</li>
+<li>最小生成树问题</li>
+<li>最短路径问题</li>
+<li>图的连通性</li>
+</ul>
+<h1 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h1><h2 id="多源最短路"><a href="#多源最短路" class="headerlink" title="多源最短路"></a>多源最短路</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><strong>题目描述</strong></h3><p>在一个大城市中，环卫工人小C和他的团队负责清理城市的生活垃圾。整个城市被分为了若干个区域，每个区域被划分为m行n列的网格。环卫工人需要将每个居民区的垃圾运输到最近的垃圾回收站。这个任务要求计算所有居民区垃圾送到回收站的最小总距离。</p>
+<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h4><p>第一行为两个整数m和n，表示网格的行数和列数，其中m和n的范围均为[1,300)。接下来m行表示区域的矩阵布局，每行元素间以空格分隔。网格元素为以下几种：</p>
+<ul>
+<li><code>-1</code> 表示该区域有障碍物，不可通行。</li>
+<li><code>0</code> 表示垃圾回收站。</li>
+<li><code>1</code> 表示居民区，需要收集垃圾。</li>
+<li><code>2</code> 表示空白区域，可以自由通行。</li>
+</ul>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h4><p>输出一个整数，表示将所有居民区的垃圾送到最近的垃圾回收站所需的最小距离和。如果无法到达垃圾回收站的居民区将被忽略。</p>
+<p><strong>样例</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">4 4</span><br><span class="line">1 2 -1 1</span><br><span class="line">2 0 2 0</span><br><span class="line">2 2 -1 2</span><br><span class="line">1 2 1 1</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">11</span><br><span class="line"></span><br><span class="line">说明：</span><br><span class="line">位于坐标(0, 0)、(0, 3)、(3, 0)、(3, 3)的是小区，位置(1, 1)、(1, 3)的是垃圾站，位置(0, 2)、(2, 2)的是障碍物，无法通行。图中共有5个小区和2个垃圾站。小区到垃圾站的最小路径长度是2+3+1+3+2=11。对于位于(3, 2)的小区，垃圾可以运送到(1, 1)或(1, 3)两个垃圾站，两者的距离相同。</span><br><span class="line"></span><br><span class="line">输入：</span><br><span class="line">2 3</span><br><span class="line">0 -1 1</span><br><span class="line">1 -1 2</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p><strong>解答</strong></p>
+<p>以所有的回收站为起点，所有的小区为终点进行搜索。搜索完成后将所有最短路的距离相加即可。如果到达不了就忽略这个小区。</p>
+<p>初始化距离数组用来存储从最近的垃圾回收站到每个点的最短距离，初始值为-1表示未访问。</p>
+<p>创建队列用于BFS。将所有起点的位置加入队列，并初始化这些位置的距离为0。加入队列是因为需要作为起点来进行BFS。</p>
+<p>部分核心代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">d = [[-<span class="number">1</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(m)] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line"><span class="comment"># 读取网格布局</span></span><br><span class="line">mp = [<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">input</span>().split())) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">q = deque()</span><br><span class="line"></span><br><span class="line"><span class="comment"># BFS</span></span><br><span class="line"><span class="keyword">while</span> q:</span><br><span class="line">    sx, sy = q.popleft()</span><br><span class="line">    <span class="keyword">for</span> dx, dy <span class="keyword">in</span> dirs: <span class="comment">#四个方向的检查</span></span><br><span class="line">        x, y = sx + dx, sy + dy</span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span>&lt;=x&lt;n <span class="keyword">and</span> <span class="number">0</span>&lt;=y&lt;m <span class="keyword">and</span> d[x][y] == -<span class="number">1</span> <span class="keyword">and</span> mp[x][y] != -<span class="number">1</span>:</span><br><span class="line">        d[x][y] = d[sx][sy] + <span class="number">1</span></span><br><span class="line">        q.append((x,y))</span><br></pre></td></tr></table></figure>
+
+<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><h2 id="数组搜索"><a href="#数组搜索" class="headerlink" title="数组搜索"></a>数组搜索</h2><p>跳跃游戏 Ⅲ</p>
+<p>这里有一个非负整数数组 <code>arr</code>，你最开始位于该数组的起始下标 <code>start</code> 处。当你位于下标 <code>i</code> 处时，你可以跳到 <code>i + arr[i]</code> 或者 <code>i - arr[i]</code>。</p>
+<p>请你判断自己是否能够跳到对应元素值为 0 的 <strong>任一</strong> 下标处。</p>
+<p>注意，不管是什么情况下，你都无法跳到数组之外。 </p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [4,2,3,0,3,1,2], start = 5</span><br><span class="line">输出：true</span><br><span class="line">解释：</span><br><span class="line">到达值为 0 的下标 3 有以下可能方案： </span><br><span class="line">下标 5 -&gt; 下标 4 -&gt; 下标 1 -&gt; 下标 3 </span><br><span class="line">下标 5 -&gt; 下标 6 -&gt; 下标 4 -&gt; 下标 1 -&gt; 下标 3 </span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [4,2,3,0,3,1,2], start = 0</span><br><span class="line">输出：true </span><br><span class="line">解释：</span><br><span class="line">到达值为 0 的下标 3 有以下可能方案： </span><br><span class="line">下标 0 -&gt; 下标 4 -&gt; 下标 1 -&gt; 下标 3</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 3：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr = [3,0,2,1,2], start = 2</span><br><span class="line">输出：false</span><br><span class="line">解释：无法到达值为 0 的下标 1 处。 </span><br></pre></td></tr></table></figure>
+
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= arr.length &lt;= 5 * 10^4</code></li>
+<li><code>0 &lt;= arr[i] &lt; arr.length</code></li>
+<li><code>0 &lt;= start &lt; arr.length</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canReach</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> start)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> arr.length;</span><br><span class="line">        <span class="type">boolean</span>[] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        Queue&lt;Integer&gt; q = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        q.offer(start);</span><br><span class="line">        <span class="keyword">while</span> (!q.isEmpty()) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> q.size();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">cur</span> <span class="operator">=</span> q.poll();</span><br><span class="line">                <span class="keyword">if</span> (cur &lt; <span class="number">0</span> || cur &gt;= arr.length) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (visited[cur]) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span> (arr[cur] == <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; </span><br><span class="line">                visited[cur] = <span class="literal">true</span>;</span><br><span class="line">                q.offer(cur + arr[cur]);</span><br><span class="line">                q.offer(cur - arr[cur]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>BFS的精髓就在于维护一个队列，保存将要进行BFS的节点，还有一个访问数组，记录节点是否被访问过。</p>
+<p>Java中的Queue:</p>
+<blockquote>
+<p>具有队列特性的接口，具有先进先出的特点。所有新元素都插入队列的末尾，移除元素都移除队列的头部</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Queue</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Collection</span>&lt;E&gt; &#123;</span><br><span class="line">    <span class="comment">//往队列插入元素，如果出现异常会抛出异常</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span>;</span><br><span class="line">    <span class="comment">//往队列插入元素，如果出现异常则返回false</span></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">offer</span><span class="params">(E e)</span>;</span><br><span class="line">    <span class="comment">//移除队列元素，如果出现异常会抛出异常</span></span><br><span class="line">    E <span class="title function_">remove</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//移除队列元素，如果出现异常则返回null</span></span><br><span class="line">    E <span class="title function_">poll</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//获取队列头部元素，如果出现异常会抛出异常</span></span><br><span class="line">    E <span class="title function_">element</span><span class="params">()</span>;</span><br><span class="line">    <span class="comment">//获取队列头部元素，如果出现异常则返回null</span></span><br><span class="line">    E <span class="title function_">peek</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>DFS版供学习：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">canReach</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> start)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> arr.length;</span><br><span class="line">        <span class="type">boolean</span>[] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        <span class="keyword">return</span> dfs(arr, start, n, visited);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[] num, <span class="type">int</span> idx, <span class="type">int</span> n, <span class="type">boolean</span>[] visited)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (idx &lt; <span class="number">0</span> || idx &gt;= num.length || visited[idx]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (num[idx] == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">step</span> <span class="operator">=</span> num[idx];</span><br><span class="line">        visited[idx] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> dfs(num, idx + step, n, visited) || dfs(num, idx - step, n, visited);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="网格图"><a href="#网格图" class="headerlink" title="网格图"></a>网格图</h1><p>网格结构比二叉树结构稍微复杂一些，其实是一种简化的图结构。</p>
+<p>在二叉树DFS遍历：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">traverse</span><span class="params">(TreeNode root)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//访问两个相邻结点：左子结点、右子结点</span></span><br><span class="line">    traverse(root.left);</span><br><span class="line">    traverse(root.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二叉树的DFS：访问相邻节点 、 判断base case</p>
+<p>root &#x3D;&#x3D; null 表示root指向的子树为空，不需要再往下遍历了，另一方面可以让后面的root.left和root.right操作不会出现空指针异常。</p>
+<p>而对于网格上的格子，将会有四个相邻节点。而网格中DFS的base case就是网格中不需要继续遍历、超出网格范围的格子。</p>
+<h2 id="避免重复遍历"><a href="#避免重复遍历" class="headerlink" title="避免重复遍历"></a>避免重复遍历</h2><p>网格结构和二叉树最大的不同就在于遍历中可能会遇到遍历过的节点，因为网格结构本质上是一个图，并且是双向的。所以DFS有可能会死循环。</p>
+<p>所以就需要标记已经遍历过的格子。</p>
+<p>一般用0，1，2来区分。</p>
+<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><p>主要应用：找连通块、判断是否有环</p>
+<p>dfs函数的形参：保存图信息的数组，保存访问信息的数组，开始dfs的行、列</p>
+<p><code>boolean[] visited = new boolean[节点个数];</code></p>
+<h2 id="1971-寻找图中是否存在路径"><a href="#1971-寻找图中是否存在路径" class="headerlink" title="1971.寻找图中是否存在路径"></a>1971.寻找图中是否存在路径</h2><p>这里给出的是双向边数组，为了方便进行dfs，一开始考虑创建一个数组存放各边的连接关系。但题解提供的是ArrayList</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt;[] adj = <span class="keyword">new</span> <span class="title class_">List</span>[n];</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="comment">//对每一个节点创建一个新的ArrayList，用于存储与节点i相邻的其他节点的编号</span></span><br><span class="line">    adj[i] = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与其他数据结构比较：</p>
+<blockquote>
+<ol>
+<li>如果使用简单的数组来表示邻接关系，可能会面临以下问题：<ul>
+<li>数组的大小需要预先确定，并且在图的大小动态变化时不太方便。</li>
+<li>对于稀疏图（即大多数节点之间没有连接），使用数组会浪费大量的空间。</li>
+</ul>
+</li>
+<li>使用<code>Map&lt;Integer, List&lt;Integer&gt;&gt;</code>也可以表示邻接关系，但可能会稍微复杂一些：<ul>
+<li>在代码实现上可能会更繁琐，需要处理键值对的操作。</li>
+<li>对于简单的图遍历问题，使用数组的方式可能更加直观和高效。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>所以对于边(x,y)，只需要 <code>adj[x].add(y)</code>即可。</p>
+<h2 id="797-所有可能的路径"><a href="#797-所有可能的路径" class="headerlink" title="797.所有可能的路径"></a>797.所有可能的路径</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();<span class="comment">//保存全部路径</span></span><br><span class="line">List&lt;Integer&gt; innerlist = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();<span class="comment">//保存单条路径</span></span><br><span class="line"><span class="comment">//上面两个都设置为了全局变量</span></span><br><span class="line">list.add(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(innerlist));</span><br></pre></td></tr></table></figure>
+
+<p>开始的理解是直接 <code>list.add(innerlist);</code>，但这样会得到错误答案。原因：Java中的对象是通过引用进行传递的，当执行这行代码时，实际上是将innerList的引用添加到了外层的list中。这意味着如果后续对innerList进行修改，那么外层列表中存储的这个引用的对象也会发生变化。所以，我们希望添加到外层列表中的是一个独立的副本，而不是原始列表的引用，这样可以确保在后续对原始列表进行修改时，不会影响已经添加到外层列表中的内容。</p>
+<p>因为需要查找的是<strong>所有</strong>可能的路径，那么就需要进行回溯。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dfs(graph, graph[n][i]);</span><br><span class="line"><span class="comment">//ArrayList的remove()方法传入整数会被作为下标</span></span><br><span class="line">innerlist.remove(innerlist.size() - <span class="number">1</span>);</span><br><span class="line"><span class="comment">//删除刚刚加入的最后一个节点</span></span><br></pre></td></tr></table></figure>
+
+<p>移除最后一个节点，以便从另一个相邻节点开始探索。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kaisei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://miraisen.github.io/2024/09/13/LeetCode%E5%9B%BE%E7%AF%87/" title="LeetCode图篇">http://miraisen.github.io/2024/09/13/LeetCode图篇/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Graph/" rel="tag"># Graph</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/08/29/SystemforSmartLogistics/" rel="prev" title="SystemforSmartLogistics">
+      <i class="fa fa-chevron-left"></i> SystemforSmartLogistics
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="next" title="并发编程线程基础">
+      并发编程线程基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">最短路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">多源最短路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">输出</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFS"><span class="nav-number">2.</span> <span class="nav-text">BFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%90%9C%E7%B4%A2"><span class="nav-number">2.1.</span> <span class="nav-text">数组搜索</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E6%A0%BC%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">网格图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E9%81%8D%E5%8E%86"><span class="nav-number">3.1.</span> <span class="nav-text">避免重复遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DFS"><span class="nav-number">4.</span> <span class="nav-text">DFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1971-%E5%AF%BB%E6%89%BE%E5%9B%BE%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E8%B7%AF%E5%BE%84"><span class="nav-number">4.1.</span> <span class="nav-text">1971.寻找图中是否存在路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#797-%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="nav-number">4.2.</span> <span class="nav-text">797.所有可能的路径</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaisei"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaisei</p>
+  <div class="site-description" itemprop="description">It's Our Night to Shine</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023/10/8 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaisei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">93k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:24</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

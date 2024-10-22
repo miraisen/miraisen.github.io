@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons8-orange-neon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons8-orange-neon-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="线程线程创建：1、实现Runnable接口的run方法 2、继承Thread类并重写run的方法 3、使用FutureTask方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程线程基础">
+<meta property="og:url" content="http://miraisen.github.io/2024/10/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Miraisen">
+<meta property="og:description" content="线程线程创建：1、实现Runnable接口的run方法 2、继承Thread类并重写run的方法 3、使用FutureTask方式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://miraisen.github.io/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/8daf3d213d6fbcadc0bd7323ea94729a_720.png">
+<meta property="article:published_time" content="2024-10-06T09:15:50.000Z">
+<meta property="article:modified_time" content="2024-10-13T09:17:38.190Z">
+<meta property="article:author" content="kaisei">
+<meta property="article:tag" content="并发">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://miraisen.github.io/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/8daf3d213d6fbcadc0bd7323ea94729a_720.png">
+
+<link rel="canonical" href="http://miraisen.github.io/2024/10/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>并发编程线程基础 | Miraisen</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Miraisen</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/10/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          并发编程线程基础
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-06 17:15:50" itemprop="dateCreated datePublished" datetime="2024-10-06T17:15:50+08:00">2024-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-13 17:17:38" itemprop="dateModified" datetime="2024-10-13T17:17:38+08:00">2024-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h2 id="线程创建："><a href="#线程创建：" class="headerlink" title="线程创建："></a>线程创建：</h2><p>1、实现Runnable接口的run方法</p>
+<p>2、继承Thread类并重写run的方法</p>
+<p>3、使用FutureTask方式</p>
+<span id="more"></span>
+
+<h3 id="继承Thread类"><a href="#继承Thread类" class="headerlink" title="继承Thread类"></a>继承Thread类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadTest</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">MyThread</span> <span class="keyword">extends</span> <span class="title class_">Thread</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;I am a child thread&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">            <span class="comment">//创建线程</span></span><br><span class="line">            <span class="type">MyThread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyThread</span>();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//启动线程</span></span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用start方法后，线程处于就绪状态。就绪状态指的是该线程已经获取了除CPU资源外的其他资源，等待获取CPU资源后才会真正处于运行状态。一旦run方法执行完毕线程就处于终止状态。</p>
+<blockquote>
+<p>使用继承方法</p>
+<p>好处：在重写方法内获取当前进程直接使用this就可以了，无需使用<code>Thread.currentThread()</code>方法</p>
+<p>缺点：Java不支持多继承，继承了Thread类就不能再继承其他类；任务与代码没有分离，多个线程执行同一个任务时需要多份任务代码。</p>
+</blockquote>
+<h3 id="实现Runnable接口的run方法"><a href="#实现Runnable接口的run方法" class="headerlink" title="实现Runnable接口的run方法"></a>实现Runnable接口的run方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">RunableTask</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am a child thread&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException&#123;</span><br><span class="line">    <span class="type">RunableTask</span> <span class="variable">task</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RunableTask</span>();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(task).start();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(task).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以给<code>RunableTask</code>添加参数进行任务区分。</p>
+<p>上述两个方式都有一个缺点：任务没有返回值。</p>
+<h3 id="使用FutureTask"><a href="#使用FutureTask" class="headerlink" title="使用FutureTask"></a>使用FutureTask</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建任务类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">CallerTask</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;String&gt;&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException&#123;</span><br><span class="line">    <span class="comment">//创建异步任务</span></span><br><span class="line">        FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">CallerTask</span>());</span><br><span class="line">        <span class="comment">//启动线程</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask).start();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//等待任务执行完毕，并返回结果</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> futureTask.get();</span><br><span class="line">            System.out.println(result);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(ExecutionException e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>使用继承方式的好处是方便传参，可以在子类里面添加成员变量，通过set方法设置参数或者通过构造函数进行传递，如果使用Runnable方式，就只能使用主线程里面声明为final的变量。</p>
+<p>只有<code>Futuretask</code>方式可以拿到任务的返回结果。</p>
+<h2 id="线程通知和等待"><a href="#线程通知和等待" class="headerlink" title="线程通知和等待"></a>线程通知和等待</h2><p>如果调用wait()方法的线程没有事先获取该对象的监视器锁，则调用wait()方法时调用线程会抛出<code>IllegalMonitorStateException</code>异常。</p>
+<p>线程获取一个共享变量的监视器锁的方法：</p>
+<p>1、执行synchronized同步代码块时使用该共享变量作为参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(共享变量)&#123;</span><br><span class="line">	<span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、调用该共享变量的方法，并且该方法使用了synchronized修饰</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>&#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个线程可以从挂起状态变为运行状态（被唤醒），即使该线程没有被其他线程调用<code>notify()</code>、<code>notifyAll()</code>方法进行通知，或者被中断，或者等待超时，这就是虚假唤醒。</p>
+<p>在应用中应该避免虚假唤醒——不停地测试该线程被唤醒地条件是否满足，不满足就继续等待（在一个循环中调用wait()方法）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span>(obj)&#123;</span><br><span class="line">    <span class="keyword">while</span>(条件不满足)&#123;</span><br><span class="line">        obj.wait();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//首先通过同步块获取obj上面的监视器锁</span></span><br></pre></td></tr></table></figure>
+
+<p>比如生产者和消费者的例子，如果当前队列没有空闲容量就会调用共享变量queue的wait()方法挂起当前线程，循环避免虚假唤醒。假如当前线程被虚假唤醒了，但队列还是没有空闲余量，那么当前线程还是会调用wait()方法把自己挂起。</p>
+<p>调用共享变量的wait()方法后会释放当前共享变量上的锁（为了打破死锁必要条件之一的持有并等待原则）。并且，当线程调用共享对象的wait()方法时，当前线程只会释放当前共享对象的锁，当前线程持有的其他共享对象的监视器锁并不会释放。</p>
+<p>当一个线程调用wait()方法被阻塞挂起后，如果其他线程中断了该线程，则该线程会抛出<code>InterruptedException</code>异常并返回。</p>
+<p>join()方法用来等待线程执行终止，线程A调用线程B的join方法会后会被阻塞。</p>
+<p>sleep方法用来让线程睡眠。调用线程会暂时让出指定时间的执行权，在这期间内不参与CPU的调度，但是该线程拥有的监视器资源，比如锁还是持有不让出。</p>
+<p>yield方法用来让出CPU执行权。当一个线程调用yield方法时，实际上是在暗示线程调度器当前线程请求让出自己的CPU使用，但是线程调度器可以无条件忽略这个暗示。（自己占有的时间片中还没有使用完的部分不想使用了）</p>
+<p>然后当前线程会让出CPU使用权，处于就绪状态，线程调度器会从线程就绪队列中获取一个线程优先级最高的线程。</p>
+<blockquote>
+<p>sleep方法和yield方法的区别在于，当线程调用sleep方法时调用线程会被阻塞挂起指定的时间，在这期间线程调度器不会调度该线程。</p>
+<p>而调用yield方法时，线程只是让出自己剩余的时间片，并没有被阻塞挂起，而是处于就绪状态，线程调度器下一次调度时就有可能调度到当前线程执行。</p>
+</blockquote>
+<h2 id="线程中断"><a href="#线程中断" class="headerlink" title="线程中断"></a>线程中断</h2><p>是一种线程间的协作模式，通过设置线程的中断标志并不能直接终止该线程的执行，而是被中断的线程根据中断状态自行处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">interrupt</span><span class="params">()</span> 设置中断标志</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">isInterrupted</span><span class="params">()</span> 检测当前线程是否被中断</span><br><span class="line"><span class="type">boolean</span> <span class="title function_">interrupted</span><span class="params">()</span> 检测当前线程是否被中断，如果发现当前线程被中断，则清除中断标志。可以通过Thread类直接调用</span><br></pre></td></tr></table></figure>
+
+<h2 id="守护线程与用户线程"><a href="#守护线程与用户线程" class="headerlink" title="守护线程与用户线程"></a>守护线程与用户线程</h2><p>在Tomcat的NIO实现NioEndpoint中会开启一组接受线程来接受用户的连接请求，以及一组处理线程负责具体处理用户请求。</p>
+<p>默认情况下，接受线程和处理线程都是守护线程，这意味着tomcat收到shutdown命令后并且没有其他用户线程存在的情况下tomcat进程会马上消亡，而不会等待线程处理完当前的请求。</p>
+<p>如果你希望在主线程结束后JVM进程马上结束，那么在创建线程时可以将其设置为守护线程，如果希望在主线程结束后子线程继续工作，等子线程结束后再让JVM进程结束，那么就将子线程设置为用户线程。</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>JDK提供的，提供了线程本地变量，也就是如果你创建了一个ThreadLocal变量，那么访问这个变量的每个线程都会有这个变量的一个本地副本。当多个线程操作这个变量时，实际操作的是自己本地内存里面的变量，从而避免了线程安全问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建ThreadLocal变量</span></span><br><span class="line"><span class="keyword">static</span> ThreadLocal&lt;String&gt; localVariable = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p><img src="/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/8daf3d213d6fbcadc0bd7323ea94729a_720.png" alt="8daf3d213d6fbcadc0bd7323ea94729a_720"></p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>每个线程的本地变量不是存放在ThreadLocal实例里面，而是存放在调用线程的threadLocals变量里面。ThreadLocal类型的本地变量存放在具体的线程内存空间中，ThreadLocal就是一个工具壳，通过set方法把value值放入调用线程的threadLocals里面并存放起来，当调用线程调用它的get方法时，再从当前线程的threadLocals变量里将其拿出来使用。</p>
+<p>threadLocals是一个HashMap结构，key就是当前ThreadLocal的实例对象引用，value是通过set方法传递的值。</p>
+<p>如果当前线程一直不消亡，那么这些本地变量会一直存在，所以可能会造成内存溢出，因此使用完毕后要记得调用ThreadLocal的remove方法删除对应线程的threadLocals中的本地变量。</p>
+<h3 id="ThreadLocal不支持继承性"><a href="#ThreadLocal不支持继承性" class="headerlink" title="ThreadLocal不支持继承性"></a>ThreadLocal不支持继承性</h3><p>子线程中获取不到父线程中设置值的同一个ThreadLocal变量。为了解决这个，就产生了InheritableThreadLocal类。</p>
+<p>InheritableThreadLocal类通过重写getMap和createMap让本地变量保存到了具体线程的inheritableThreadLocals变量里面，那么线程在通过InheritableThreadLocal类实例的set或者get方法设置变量时，就会创建当前线程的inheritableThreadLocals变量。当父线程创建子线程时，构造函数会把父线程中inheritableThreadLocals变量里面的本地变量复制一份到子线程的inheritableThreadLocals变量里面。</p>
+<h1 id="并发编程的其他基础知识"><a href="#并发编程的其他基础知识" class="headerlink" title="并发编程的其他基础知识"></a>并发编程的其他基础知识</h1><h2 id="区分并发和并行"><a href="#区分并发和并行" class="headerlink" title="区分并发和并行"></a>区分并发和并行</h2><p>并发：同一个时间段内多个任务同时都在执行，并且都没有执行结束。</p>
+<p>并行：单位时间内多个任务同时在执行。</p>
+<p>并发的多个任务在单位时间内不一定同时在执行。比如双CPU配置，线程A和线程B各自在自己的CPU上执行任务，实现了真正的并行运行。在多线程编程实践中，线程的个数往往多于CPU的个数，所以一般都称多线程并发编程而不是多线程并行编程。</p>
+<p>随着对应用系统性能和吞吐量要求的提高，出现了处理海量数据和请求的要求，这些都对高并发编程有着迫切的需求。</p>
+<h2 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h2><p>synchronized块是Java提供的一种原子性内置锁，Java中的每一个对象都可以把它当作一个同步锁来使用。</p>
+<blockquote>
+<p>Java内置的，使用者看不到的锁被称为内部锁，也叫做监视器锁。</p>
+</blockquote>
+<p>线程的执行代码在进入synchronized代码块前会自动获取内部锁，这时候其他线程访问该同步代码块时会被阻塞挂起。拿到内部锁的线程会在正常退出同步代码块或者在同步块内调用了该内置锁资源的wait系列方法时释放该内置锁。内置锁是排它锁。</p>
+<blockquote>
+<p>排它锁：当一个线程获取这个锁后，其他线程必须等待该线程释放锁后才能获取该锁。</p>
+</blockquote>
+<p>注意：Java中的线程是与操作系统的原生线程一一对应的，所以当阻塞一个线程时，需要从用户态切换到内核态执行阻塞操作，这是很耗时的操作，而synchronized的使用就会导致上下文切换。</p>
+<h2 id="synchronized的内存语义"><a href="#synchronized的内存语义" class="headerlink" title="synchronized的内存语义"></a>synchronized的内存语义</h2><p>进入synchronized块的内存语义是把在synchronized块内使用到的变量从线程的工作内存中清除，这样在synchronized块内使用到该变量时就不会从线程工作内存中获取，而是直接从主内存中获取。这样就解决了共享变量内存可见性的问题。</p>
+<p>退出synchronized块的内存语义是把在synchronized块内对共享变量的修改刷新到主内存。</p>
+<p>synchronized也经常被用来实现原子性操作。</p>
+<blockquote>
+<p>原子性操作是指一个操作或者一系列操作要么全部执行，要么全部不执行，不会出现执行了一部分的情况。<br>在计算机科学中，原子性操作通常用于多线程或分布式系统中，以确保数据的一致性和可靠性。例如，在数据库事务中，一组操作（如插入、更新和删除）被视为一个原子性操作，要么全部成功提交，要么全部回滚，以保证数据库的完整性。<br>原子性操作的实现方式有多种，常见的包括使用锁、事务机制、硬件指令等。这些方法可以确保在操作执行过程中，不会被其他线程或进程干扰，从而保证操作的原子性。</p>
+</blockquote>
+<p>注意：synchronized会引起线程上下文切换并带来线程调度开销。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadSafeInteger</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(<span class="type">int</span> value)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><p>使用锁太笨重，因为会带来线程上下文的切换开销。</p>
+<p>对于解决内存可见性问题，Java还提供了一种弱形式的同步：使用volatile关键字。可以确保对一个变量的更新对其他线程马上可见。因为当一个变量被声明为volatile时，线程在写入变量时不会把值缓存在寄存器或者其他地方，而是会把值刷新回主内存。而当其他线程读取该共享变量时，会从主内存重新获取最新值，而不是使用当前线程的工作内存中的值。</p>
+<p>当线程写入了volatile变量值时就等价于线程退出synchronized同步块，读取volatile变量值时就相当于进入同步块。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadSafeInteger</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="type">int</span> value;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(<span class="type">int</span> value)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相比之下，synchronized方式是独占锁，同时只能有一个线程调用get()方法，其他调用线程都会被阻塞，同时会存在线程上下文切换和线程重新调度的开销。 使用volatile的方式是非阻塞算法，不会造成线程上下文切换的开销。</p>
+<p>但volatile虽然提供了可见性支持，却并不保证操作的原子性。</p>
+<p>一般使用volatile关键字的场景：</p>
+<ul>
+<li>写入变量值不依赖变量的当前值时。因为如果依赖当前值，将会是获取-计算-写入三步操作，这三步操作不是原子性的，而volatile不保证原子性。</li>
+<li>读写变量值时没有加锁。因为加锁本身已经保证了内存可见性，不需要volatile。</li>
+</ul>
+<h2 id="Java中的CAS操作"><a href="#Java中的CAS操作" class="headerlink" title="Java中的CAS操作"></a>Java中的CAS操作</h2><p>加了关键字synchronized后，同一时间就只能有一个线程可以调用，显然大大降低了并发性。</p>
+<p>CAS即Compare and Swap，其是JDK提供的非阻塞原子性操作，通过硬件保证了比较-更新操作的原子性。</p>
+<ul>
+<li><code>boolean compareAndSwapLong(Object obj, long valueOffset, long except, long update)</code> 方法。四个操作数分别为：对象内存位置、对象中的变量的偏移量、变量预期值和新的值。操作含义：如果对象obj中内存偏移量为valueOffset的变量值为expect，则使用新的值update替换旧的值expect。这是处理器提供的一个原子性指令。</li>
+</ul>
+<p>ABA问题：变量的状态值发生了环形转换，就是变量的值可以从A到B，然后再从B到A。如果变量的值只能朝着一个方向转换，比如从A到B，B到C，不构成环形，就不会存在问题。</p>
+<blockquote>
+<p>JDK中的AtomicStampedReference类给每个变量的状态值都配备了一个时间戳，从而避免了ABA问题的产生。</p>
+</blockquote>
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h2><p>悲观锁：对数据被外界修改持保守态度，认为数据很容易就会被其他线程修改，所以在数据被处理前先对数据进行加锁，并在整个数据处理过程中，使数据处于锁定状态。悲观锁的实现往往依靠数据库提供的锁机制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int updateEntry(long id)&#123;</span><br><span class="line">	//使用悲观锁获取指定记录</span><br><span class="line">	EntryObject entry = query(&quot;select * from table1 where id = #&#123;id&#125; for update&quot;, id);</span><br><span class="line">	</span><br><span class="line">	//修改记录内容，根据计算修改entry记录的属性</span><br><span class="line">	String name = generatorName(entry);</span><br><span class="line">	entry.setName(name);</span><br><span class="line">	</span><br><span class="line">	//update操作</span><br><span class="line">	int count = update(&quot;update table1 set name=#&#123;name&#125;, age#&#123;age&#125; where id = #&#123;id&#125;&quot;, entry);</span><br><span class="line">	return count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设updateEntry、query、update方法都使用事务切面的方法，并且事务传播性被设置为required。</p>
+<blockquote>
+<p>事务切面是面向切面编程（AOP）中的一个概念，主要用于处理事务管理相关的问题。</p>
+<p>在软件应用中，事务通常指的是一组操作，这些操作要么全部成功执行，要么全部回滚，以保证数据的一致性。事务切面就是围绕事务处理这个关注点所创建的一个切面。</p>
+</blockquote>
+<p>执行updateEntry方法时如果上层调用方法没有开启事务，则会即时开启一个事务，又因为事务传播性是required，所以执行query时不会开启新的事务，而是加入updateEntry开启的事务，也就是在updateEnrty方法执行完毕提交事务时，query方法才会被提交，记录的锁会持续到updateEntry执行结束。</p>
+<p>当多个线程调用updateEntry的事务，并且传递的是同一个id时，只有一个线程执行获取指定记录会成功，因为同一时间只有一个线程可以获取对应记录的锁，在获取锁的线程释放锁前（updateEntry执行完毕，提交事务前），其他线程必须等待，也就是同一时间只有一个线程可以对该记录进行修改。</p>
+<p>乐观锁：认为数据在一般情况下不会造成冲突，所以在访问记录前不会加排它锁，而是在进行数据提交更新时，才会正式对数据冲突与否进行检测。</p>
+<p>乐观锁并不会使用数据库提供的锁机制，一般在表中添加version字段或者使用业务状态来实现。乐观锁直到提交时才锁定，所以不会产生任何死锁。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kaisei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://miraisen.github.io/2024/10/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%9F%BA%E7%A1%80/" title="并发编程线程基础">http://miraisen.github.io/2024/10/06/并发编程线程基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/09/13/LeetCode%E5%9B%BE%E7%AF%87/" rel="prev" title="LeetCode图篇">
+      <i class="fa fa-chevron-left"></i> LeetCode图篇
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/16/LeetCode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AF%87/" rel="next" title="LeetCode数据结构篇">
+      LeetCode数据结构篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">线程创建：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E6%89%BFThread%E7%B1%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">继承Thread类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0Runnable%E6%8E%A5%E5%8F%A3%E7%9A%84run%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">实现Runnable接口的run方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8FutureTask"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用FutureTask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">1.1.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%80%9A%E7%9F%A5%E5%92%8C%E7%AD%89%E5%BE%85"><span class="nav-number">1.2.</span> <span class="nav-text">线程通知和等待</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%96%AD"><span class="nav-number">1.3.</span> <span class="nav-text">线程中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">守护线程与用户线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">1.5.</span> <span class="nav-text">ThreadLocal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal%E4%B8%8D%E6%94%AF%E6%8C%81%E7%BB%A7%E6%89%BF%E6%80%A7"><span class="nav-number">1.5.2.</span> <span class="nav-text">ThreadLocal不支持继承性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%9A%84%E5%85%B6%E4%BB%96%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">并发编程的其他基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E5%88%86%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="nav-number">2.1.</span> <span class="nav-text">区分并发和并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.2.</span> <span class="nav-text">synchronized关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E7%9A%84%E5%86%85%E5%AD%98%E8%AF%AD%E4%B9%89"><span class="nav-number">2.3.</span> <span class="nav-text">synchronized的内存语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">2.4.</span> <span class="nav-text">volatile关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E4%B8%AD%E7%9A%84CAS%E6%93%8D%E4%BD%9C"><span class="nav-number">2.5.</span> <span class="nav-text">Java中的CAS操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%81"><span class="nav-number">3.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">3.1.</span> <span class="nav-text">乐观锁与悲观锁</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaisei"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaisei</p>
+  <div class="site-description" itemprop="description">It's Our Night to Shine</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023/10/8 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaisei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">93k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:24</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

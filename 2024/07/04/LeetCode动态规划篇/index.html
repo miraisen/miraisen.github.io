@@ -22,18 +22,20 @@
     var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="416.分割等和子集 给你一个 只包含正整数 的 非空数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。 一开始试图用排序加前缀和判断，但在两个子集相同的情况这种判断不适用。比如 1 2 1 2，是可以分割成两个子集的，但排序后只能分成 1 1 和 2 2。">
+  <meta name="description" content="本篇为动态规划题单的总结和思路等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode动态规划篇">
 <meta property="og:url" content="http://miraisen.github.io/2024/07/04/LeetCode%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AF%87/index.html">
 <meta property="og:site_name" content="Miraisen">
-<meta property="og:description" content="416.分割等和子集 给你一个 只包含正整数 的 非空数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。 一开始试图用排序加前缀和判断，但在两个子集相同的情况这种判断不适用。比如 1 2 1 2，是可以分割成两个子集的，但排序后只能分成 1 1 和 2 2。">
+<meta property="og:description" content="本篇为动态规划题单的总结和思路等。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://miraisen.github.io/LeetCode%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AF%87/1722224025-gsUAIv-image.png">
 <meta property="article:published_time" content="2024-07-04T15:37:00.000Z">
-<meta property="article:modified_time" content="2024-08-25T04:27:05.171Z">
+<meta property="article:modified_time" content="2024-09-25T11:28:55.578Z">
 <meta property="article:author" content="kaisei">
-<meta property="article:tag" content="DP">
+<meta property="article:tag" content="Dynamic_Planning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://miraisen.github.io/LeetCode%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AF%87/1722224025-gsUAIv-image.png">
 
 <link rel="canonical" href="http://miraisen.github.io/2024/07/04/LeetCode%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AF%87/">
 
@@ -227,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-25 12:27:05" itemprop="dateModified" datetime="2024-08-25T12:27:05+08:00">2024-08-25</time>
+                <time title="修改时间：2024-09-25 19:28:55" itemprop="dateModified" datetime="2024-09-25T19:28:55+08:00">2024-09-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,14 +254,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -271,11 +273,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>416.分割等和子集</p>
-<p>给你一个 只包含正整数 的 非空数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
-<p>一开始试图用排序加前缀和判断，但在两个子集相同的情况这种判断不适用。比如 1 2 1 2，是可以分割成两个子集的，但排序后只能分成 1 1 和 2 2。</p>
+        <p>本篇为动态规划题单的总结和思路等。</p>
 <span id="more"></span>
 
+<p>[TOC]</p>
+<h1 id="一些基本操作"><a href="#一些基本操作" class="headerlink" title="一些基本操作"></a>一些基本操作</h1><p>得到统计数组中每个数字出现次数的数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] all = <span class="keyword">new</span> <span class="title class_">int</span>[max+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> item:nums)&#123;</span><br><span class="line">    all[item]++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<!--more-->
+
+<h1 id="从记忆化搜索到递归"><a href="#从记忆化搜索到递归" class="headerlink" title="从记忆化搜索到递归"></a>从记忆化搜索到递归</h1><p>把递归的计算结果保存下来，那么下次递归到同样的入参时，就直接返回先前保存的结果。</p>
+<p>递归搜索+保存计算结果 &#x3D; 记忆化搜索</p>
+<p>对于Python可以用cache装饰器，原理是用Hashmap记录入参和对应的返回值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以打家劫舍为例</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">rob</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        cache = [-<span class="number">1</span>]*n</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i</span>):</span><br><span class="line">            <span class="keyword">if</span> i &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> cache[i] != -<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> cache[i]</span><br><span class="line">           	res = <span class="built_in">max</span>(dfs(i-<span class="number">1</span>), dfs(i-<span class="number">2</span>)+nums[i])</span><br><span class="line">            cache[i] = res</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        <span class="keyword">return</span> dfs(n-<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>复杂度计算：用状态个数乘上单个状态所需要的计算时间。</p>
+<p>自顶向下算：记忆化搜索；自底向上算：递归。</p>
+<p>可以将空间复杂度从O(n)提升到O(1)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="built_in">len</span>(nums)</span><br><span class="line">f0 = f1 = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i,x <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">    new_f = <span class="built_in">max</span>(f1, f0+x)</span><br><span class="line">    f0 = f1</span><br><span class="line">    f1 = new_f</span><br><span class="line"><span class="keyword">return</span> f1</span><br></pre></td></tr></table></figure>
+
+<h2 id="416-分割等和子集"><a href="#416-分割等和子集" class="headerlink" title="416.分割等和子集"></a>416.分割等和子集</h2><p>给你一个 只包含正整数 的 非空数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<p>一开始试图用排序加前缀和判断，但在两个子集相同的情况这种判断不适用。比如 1 2 1 2，是可以分割成两个子集的，但排序后只能分成 1 1 和 2 2。</p>
 <p>学习题解：</p>
 <p>设nums的元素和是s。要满足两个子集的元素和相等，必须满足：</p>
 <p>1、s是偶数 2、子集元素和恰好等于s&#x2F;2。</p>
@@ -295,6 +313,117 @@
 <p>记忆化搜索：定义dfs(i,j)表示能否从nums[0]到nums[i]中选出一个和为j的子序列。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">solution</span>:</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">canPartition</span>(<span class="params">self, nums:<span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i: <span class="built_in">int</span>, j: <span class="built_in">int</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">            <span class="keyword">if</span> i &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> j == <span class="number">0</span></span><br><span class="line">            <span class="keyword">return</span> j &gt;= nums[i] <span class="keyword">and</span> dfs(i-<span class="number">1</span>, j- nums[i]) <span class="keyword">or</span> dfs(i-<span class="number">1</span>, j)</span><br><span class="line">       	</span><br><span class="line">        s = <span class="built_in">sum</span>(nums)</span><br><span class="line">        <span class="keyword">return</span> s % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">and</span> dfs(<span class="built_in">len</span>(nums)-<span class="number">1</span> , s//<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 
+<h2 id="小F的圣诞礼盒挑战"><a href="#小F的圣诞礼盒挑战" class="headerlink" title="小F的圣诞礼盒挑战"></a>小F的圣诞礼盒挑战</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><strong>题目描述</strong></h3><p>圣诞节到了，小F的妈妈为这个特别的节日准备了许多不同尺寸的圣诞礼盒。小F在玩一个叫做“堆盒子”的游戏，她的妈妈向她发起了一个挑战：尽可能地将盒子堆得更高。每个盒子有特定的长、宽和高，并且堆放时，下面的盒子的每个维度都必须大于放在其上面的盒子。</p>
+<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h4><p>首先输入一个整数N，代表礼盒的数量。接下来的N行，每行包含三个整数，分别表示一个礼盒的长、宽和高。礼盒的尺寸限制为1到10，礼盒数量不超过1000个。</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h4><p>输出一个整数，表示可以堆出的最高礼盒堆的总高度。</p>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a><strong>样例</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">4</span><br><span class="line">1 1 1</span><br><span class="line">2 3 4</span><br><span class="line">3 6 7</span><br><span class="line">4 5 6</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">12</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">在这个例子中，最佳的堆叠方式是选择第一、第二和第三个盒子，因为它们的尺寸条件允许按照这样的顺序堆叠。每个盒子的高度分别为4、7和1，总高度达到12。</span><br><span class="line"></span><br><span class="line">输入：</span><br><span class="line">4</span><br><span class="line">1 1 1</span><br><span class="line">1 1 1</span><br><span class="line">2 2 2</span><br><span class="line">2 2 2</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">提示：</span><br><span class="line">一种有效的选择是堆叠第一个和第三个盒子，它们的高度总和为3，这是该情况下可能达到的最高高度。</span><br></pre></td></tr></table></figure>
+
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><p>三维动态规划。首先将所有礼盒按照顺序进行排序。令f[i]表示以第i个礼盒为底时，所能达到的最高的高度。</p>
+<p>一开始有f[i]&#x3D;a[i][2]，这是因为所有礼盒都可以上面不放礼盒。</p>
+<p>对于<code>j&lt;i</code>，如果<code>a[j][0] &lt; a[i][0], a[j][1] &lt; a[i][1], a[j][2] &lt; a[i][2]</code>，那么说明礼盒j可以放在礼盒i上面，因此f[i]的其中一个决策为<code>f[j] + a[i][2]</code>。在这些决策中，取一个最大值即可。</p>
+<p>最终，<code>f</code>的最大值即为结果。</p>
+<p>部分核心代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ls = [] <span class="comment"># 用于存储所有盒子的尺寸</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    ls.append(<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>,<span class="built_in">input</span>().split())))</span><br><span class="line">ls.sort()</span><br><span class="line"></span><br><span class="line">f = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    f[i] = ls[i][<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i):</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">all</span>(x &lt; y <span class="keyword">for</span> x,y <span class="keyword">in</span> <span class="built_in">zip</span>(ls[j], ls[i])):</span><br><span class="line">            f[i] = <span class="built_in">max</span>(f[i], f[j] + ls[i][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="3290-最高乘法得分"><a href="#3290-最高乘法得分" class="headerlink" title="3290.最高乘法得分"></a>3290.最高乘法得分</h2><p>给你一个大小为 4 的整数数组 <code>a</code> 和一个大小 <strong>至少</strong>为 4 的整数数组 <code>b</code>。</p>
+<p>你需要从数组 <code>b</code> 中选择四个下标 <code>i0</code>, <code>i1</code>, <code>i2</code>, 和 <code>i3</code>，并满足 <code>i0 &lt; i1 &lt; i2 &lt; i3</code>。你的得分将是 <code>a[0] * b[i0] + a[1] * b[i1] + a[2] * b[i2] + a[3] * b[i3]</code> 的值。</p>
+<p>返回你能够获得的 <strong>最大</strong> 得分。</p>
+<p><strong>示例 1：</strong></p>
+<p><strong>输入：</strong> a &#x3D; [3,2,5,6], b &#x3D; [2,-6,4,-5,-3,2,-7]</p>
+<p><strong>输出：</strong> 26</p>
+<p><strong>解释：</strong><br>选择下标 0, 1, 2 和 5。得分为 <code>3 * 2 + 2 * (-6) + 5 * 4 + 6 * 2 = 26</code>。</p>
+<p><strong>示例 2：</strong></p>
+<p><strong>输入：</strong> a &#x3D; [-1,4,5,-2], b &#x3D; [-5,-1,-3,-2,-4]</p>
+<p><strong>输出：</strong> -1</p>
+<p><strong>解释：</strong><br>选择下标 0, 1, 3 和 4。得分为 <code>(-1) * (-5) + 4 * (-1) + 5 * (-2) + (-2) * (-4) = -1</code>。</p>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>a.length == 4</code></li>
+<li><code>4 &lt;= b.length &lt;= 105</code></li>
+<li><code>-105 &lt;= a[i], b[i] &lt;= 105</code></li>
+</ul>
+<h4 id="解析-1"><a href="#解析-1" class="headerlink" title="解析"></a>解析</h4><p>从b中选一个长为4的子序列。定义dfs(i, j)表示从b[0]到b[i]中选出j+1个数，来和a[0]到a[j]算一个点积的最大值。考虑b[i]选或不选</p>
+<ul>
+<li>不选：dfs(i-1, j)</li>
+<li>选：dfs(i-1,j-1) + a[j]*b[i]</li>
+</ul>
+<p>dfs(i, j) &#x3D; max(dfs(i-1, j), dfs(i-1, j-1) + a[j]*b[i])</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxScore</span>(<span class="params">self, a:<span class="type">List</span>[<span class="built_in">int</span>], b: <span class="type">List</span>[<span class="built_in">int</span>]</span>)-&gt;<span class="built_in">int</span>:</span><br><span class="line"><span class="meta">        @cache </span><span class="comment"># 缓存装饰器，避免重复计算dfs的结果（记忆化）</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i:<span class="built_in">int</span>, j:<span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span>: <span class="comment"># 数字匹配完了</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> i &lt; <span class="number">0</span>: <span class="comment"># 此时j&gt;=0</span></span><br><span class="line">                <span class="comment"># 还有数字未匹配，不合法</span></span><br><span class="line">                <span class="keyword">return</span> -inf</span><br><span class="line">        	<span class="keyword">return</span> <span class="built_in">max</span>(dfs(i-<span class="number">1</span>, j), dfs(i-<span class="number">1</span>,j-<span class="number">1</span>) + a[j] * b[i])</span><br><span class="line">       	<span class="keyword">return</span> dfs(<span class="built_in">len</span>(b)-<span class="number">1</span>, <span class="number">3</span>) <span class="comment"># 注意是下标哈</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">maxScore</span><span class="params">(<span class="type">int</span>[] a, <span class="type">int</span>[] b)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> b.length;</span><br><span class="line">        <span class="type">long</span>[][] memo = <span class="keyword">new</span> <span class="title class_">long</span>[n][<span class="number">4</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">long</span>[] row: memo)&#123;</span><br><span class="line">            Arrays.fill(row, Long.MIN_VALUE);<span class="comment">//没有计算过</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dfs(n-<span class="number">1</span>, <span class="number">3</span>, a, b, memo);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> j, <span class="type">int</span>[] a, <span class="type">int</span>[] b, <span class="type">long</span>[][ ] memo)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(j&lt;<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 选完了</span></span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">0</span>) <span class="keyword">return</span> Long.MIN_VALUE / <span class="number">2</span>;<span class="comment">//没选完   防止溢出</span></span><br><span class="line">        <span class="keyword">if</span>(memo[i][j] == Long.MIN_VALUE)<span class="comment">//需要计算，并记忆化</span></span><br><span class="line">        &#123;</span><br><span class="line">            memo[i][j] = Math.max(dfs(i-<span class="number">1</span>, j, a, b, memo), dfs(i-<span class="number">1</span>, j-<span class="number">1</span>, a, b, memo) + (<span class="type">long</span>) a[j] * b[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> memo[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2266-统计打字方案数"><a href="#2266-统计打字方案数" class="headerlink" title="2266. 统计打字方案数"></a>2266. 统计打字方案数</h2><p>Alice 在给 Bob 用手机打字。数字到字母的 <strong>对应</strong> 如下图所示。</p>
+<p><img src="/LeetCode%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AF%87/1722224025-gsUAIv-image.png" alt="img"></p>
+<p>为了 <strong>打出</strong> 一个字母，Alice 需要 <strong>按</strong> 对应字母 <code>i</code> 次，<code>i</code> 是该字母在这个按键上所处的位置。</p>
+<ul>
+<li>比方说，为了按出字母 <code>&#39;s&#39;</code> ，Alice 需要按 <code>&#39;7&#39;</code> 四次。类似的， Alice 需要按 <code>&#39;5&#39;</code> 两次得到字母 <code>&#39;k&#39;</code> 。</li>
+<li>注意，数字 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code> 不映射到任何字母，所以 Alice <strong>不</strong> 使用它们。</li>
+</ul>
+<p>但是，由于传输的错误，Bob 没有收到 Alice 打字的字母信息，反而收到了 <strong>按键的字符串信息</strong> 。</p>
+<ul>
+<li>比方说，Alice 发出的信息为 <code>&quot;bob&quot;</code> ，Bob 将收到字符串 <code>&quot;2266622&quot;</code> 。</li>
+</ul>
+<p>给你一个字符串 <code>pressedKeys</code> ，表示 Bob 收到的字符串，请你返回 Alice <strong>总共可能发出多少种文字信息</strong> 。</p>
+<p>由于答案可能很大，将它对 <code>109 + 7</code> <strong>取余</strong> 后返回。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：pressedKeys = &quot;22233&quot;</span><br><span class="line">输出：8</span><br><span class="line">解释：</span><br><span class="line">Alice 可能发出的文字信息包括：</span><br><span class="line">&quot;aaadd&quot;, &quot;abdd&quot;, &quot;badd&quot;, &quot;cdd&quot;, &quot;aaae&quot;, &quot;abe&quot;, &quot;bae&quot; 和 &quot;ce&quot; 。</span><br><span class="line">由于总共有 8 种可能的信息，所以我们返回 8 。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：pressedKeys = &quot;222222222222222222222222222222222222&quot;</span><br><span class="line">输出：82876089</span><br><span class="line">解释：</span><br><span class="line">总共有 2082876103 种 Alice 可能发出的文字信息。</span><br><span class="line">由于我们需要将答案对 10^9 + 7 取余，所以我们返回 2082876103 % (109 + 7) = 82876089 。</span><br></pre></td></tr></table></figure>
+
+<h3 id="解析-2"><a href="#解析-2" class="headerlink" title="解析"></a>解析</h3><p>把相同字符视为一组，在一组内处理；</p>
+<p>定义f[i]或g[i]表示长为i的只有一种字符的字符串对应的文字信息种类数</p>
+<p>对于字符不为7或9的情况，定义f[i]表示长为i的只有一种字符的字符串对应的文字信息种类数；转移方程：</p>
+<p>f[i] &#x3D; f[i-1] + f[i-2] + f[i-3]</p>
+<p>对于字符为7或9的情况，转移方程</p>
+<p>g[i] &#x3D; g[i-1] + g[i-2] + g[i-3] + g[i-4]。</p>
+<p>不同组之间互不影响，根据乘法原理把不同组的文字信息种类数相乘得到答案。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOD</span> <span class="operator">=</span> <span class="number">1_000_000_007</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MX</span> <span class="operator">=</span> <span class="number">100_001</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span>[] f = <span class="keyword">new</span> <span class="title class_">long</span>[MX];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span>[] g = <span class="keyword">new</span> <span class="title class_">long</span>[MX];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        f[<span class="number">0</span>] = g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        f[<span class="number">1</span>] = g[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        f[<span class="number">2</span>] = g[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line">        f[<span class="number">3</span>] = g[<span class="number">3</span>] = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">4</span>;i&lt;MX;i++)&#123;</span><br><span class="line">            f[i] = (f[i-<span class="number">1</span>] + f[i-<span class="number">2</span>] + f[i-<span class="number">3</span>]) % MOD;</span><br><span class="line">            g[i] = (g[i-<span class="number">1</span>] + g[i-<span class="number">2</span>] + g[i-<span class="number">3</span>] + g[i-<span class="number">4</span>]) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countTexts</span><span class="params">(String s)</span>&#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cnt</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i++)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            cnt++;</span><br><span class="line">            <span class="keyword">if</span>(i == s.length() - <span class="number">1</span> || c != s.charAt(i+<span class="number">1</span>))&#123;</span><br><span class="line">                ans = ans * (c!=<span class="string">&#x27;7&#x27;</span>&amp;&amp;c!=<span class="string">&#x27;9&#x27;</span>?f[cnt]:g[cnt])%MOD;</span><br><span class="line">                cnt = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">int</span>)ans;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="复习题单"><a href="#复习题单" class="headerlink" title="复习题单"></a>复习题单</h1><table>
+<thead>
+<tr>
+<th align="center">题号</th>
+<th align="center">名字</th>
+<th align="center">状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">3290</td>
+<td align="center">最高乘法得分</td>
+<td align="center">接近独立写出</td>
+</tr>
+<tr>
+<td align="center">377</td>
+<td align="center">组合总和Ⅳ</td>
+<td align="center">不能独立写出</td>
+</tr>
+<tr>
+<td align="center">2266</td>
+<td align="center">统计打字方案数</td>
+<td align="center">有算法思路但是不知道如何java实现</td>
+</tr>
+<tr>
+<td align="center">192</td>
+<td align="center">打家劫舍</td>
+<td align="center">过了</td>
+</tr>
+<tr>
+<td align="center">740</td>
+<td align="center">删除并获得点数</td>
+<td align="center">不会</td>
+</tr>
+<tr>
+<td align="center">2320</td>
+<td align="center">统计放置房子的方式数</td>
+<td align="center">有思路还没过</td>
+</tr>
+<tr>
+<td align="center">53</td>
+<td align="center">最大子数组和</td>
+<td align="center">过了🥳</td>
+</tr>
+</tbody></table>
 
     </div>
 
@@ -321,7 +450,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/DP/" rel="tag"># DP</a>
+              <a href="/tags/Dynamic-Planning/" rel="tag"># Dynamic_Planning</a>
           </div>
 
         
@@ -395,6 +524,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">一些基本操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2%E5%88%B0%E9%80%92%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">从记忆化搜索到递归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">416.分割等和子集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8FF%E7%9A%84%E5%9C%A3%E8%AF%9E%E7%A4%BC%E7%9B%92%E6%8C%91%E6%88%98"><span class="nav-number">2.2.</span> <span class="nav-text">小F的圣诞礼盒挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">样例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3290-%E6%9C%80%E9%AB%98%E4%B9%98%E6%B3%95%E5%BE%97%E5%88%86"><span class="nav-number">2.3.</span> <span class="nav-text">3290.最高乘法得分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-1"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2266-%E7%BB%9F%E8%AE%A1%E6%89%93%E5%AD%97%E6%96%B9%E6%A1%88%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">2266. 统计打字方案数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-2"><span class="nav-number">2.4.1.</span> <span class="nav-text">解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%8D%E4%B9%A0%E9%A2%98%E5%8D%95"><span class="nav-number">3.</span> <span class="nav-text">复习题单</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,7 +540,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -423,7 +553,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -459,12 +589,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">93k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="03.01.三合一用一个数组实现三个栈。 分析： 可以通过将数组的前三分之一分配到第一个栈，第二个三分之一分配到第二个栈，最后的第三个三分之一分配到第三个栈。来模拟数组中的三个栈。实际上某个栈可能比其他的更大，这种平均的分法就不可行了。如果考虑灵活划分，可以移动栈，要保证使用所有可用的容量，把数组看作是循环的。 也可以直接用二维数组来存三个栈。二维数组的每一行代表一个栈，同时使用一个locatio">
+  <meta name="description" content="[TOC] 03.01.三合一用一个数组实现三个栈。 分析： 可以通过将数组的前三分之一分配到第一个栈，第二个三分之一分配到第二个栈，最后的第三个三分之一分配到第三个栈。来模拟数组中的三个栈。实际上某个栈可能比其他的更大，这种平均的分法就不可行了。如果考虑灵活划分，可以移动栈，要保证使用所有可用的容量，把数组看作是循环的。 也可以直接用二维数组来存三个栈。二维数组的每一行代表一个栈，同时使用一个l">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode栈与队列篇">
 <meta property="og:url" content="http://miraisen.github.io/2024/07/05/LeetCode%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E7%AF%87/index.html">
 <meta property="og:site_name" content="Miraisen">
-<meta property="og:description" content="03.01.三合一用一个数组实现三个栈。 分析： 可以通过将数组的前三分之一分配到第一个栈，第二个三分之一分配到第二个栈，最后的第三个三分之一分配到第三个栈。来模拟数组中的三个栈。实际上某个栈可能比其他的更大，这种平均的分法就不可行了。如果考虑灵活划分，可以移动栈，要保证使用所有可用的容量，把数组看作是循环的。 也可以直接用二维数组来存三个栈。二维数组的每一行代表一个栈，同时使用一个locatio">
+<meta property="og:description" content="[TOC] 03.01.三合一用一个数组实现三个栈。 分析： 可以通过将数组的前三分之一分配到第一个栈，第二个三分之一分配到第二个栈，最后的第三个三分之一分配到第三个栈。来模拟数组中的三个栈。实际上某个栈可能比其他的更大，这种平均的分法就不可行了。如果考虑灵活划分，可以移动栈，要保证使用所有可用的容量，把数组看作是循环的。 也可以直接用二维数组来存三个栈。二维数组的每一行代表一个栈，同时使用一个l">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-05T10:21:19.000Z">
-<meta property="article:modified_time" content="2024-08-25T04:26:21.181Z">
+<meta property="article:modified_time" content="2024-10-18T08:37:58.855Z">
 <meta property="article:author" content="kaisei">
 <meta property="article:tag" content="栈">
 <meta property="article:tag" content="队列">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-25 12:26:21" itemprop="dateModified" datetime="2024-08-25T12:26:21+08:00">2024-08-25</time>
+                <time title="修改时间：2024-10-18 16:37:58" itemprop="dateModified" datetime="2024-10-18T16:37:58+08:00">2024-10-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -253,14 +253,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -272,7 +272,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="03-01-三合一"><a href="#03-01-三合一" class="headerlink" title="03.01.三合一"></a>03.01.三合一</h3><p>用一个数组实现三个栈。</p>
+        <p>[TOC]</p>
+<h3 id="03-01-三合一"><a href="#03-01-三合一" class="headerlink" title="03.01.三合一"></a>03.01.三合一</h3><p>用一个数组实现三个栈。</p>
 <p>分析：</p>
 <p>可以通过将数组的前三分之一分配到第一个栈，第二个三分之一分配到第二个栈，最后的第三个三分之一分配到第三个栈。来模拟数组中的三个栈。实际上某个栈可能比其他的更大，这种平均的分法就不可行了。如果考虑灵活划分，可以移动栈，要保证使用所有可用的容量，把数组看作是循环的。</p>
 <p>也可以直接用二维数组来存三个栈。二维数组的每一行代表一个栈，同时使用一个locations记录每个栈待插入的下标。</p>
@@ -309,6 +310,57 @@
 <p>练习题: 496.下一个更大元素 I</p>
 <p>核心就是单调栈：从右到左遍历，如果大于栈顶元素就出栈，统一入栈。</p>
 <p>技巧：建立{元素值:下标} <code>idx = &#123;x:i for i, x in enumerate(nums1)&#125;</code></p>
+<h3 id="42-接雨水"><a href="#42-接雨水" class="headerlink" title="42.接雨水"></a>42.接雨水</h3><p>使用了单调栈的方法，通过遍历数组，当遇到一个高度大于等于栈顶元素高度的柱子时，进行雨水的计算，并弹出栈顶元素，直到栈顶元素高度大于当前元素高度或者栈为空。</p>
+<p>当判断条件为height[i] &gt;&#x3D; height[st.peek()]时，只要当前元素的高度不小于栈顶元素的高度，就会进入循环进行处理。<br>这意味着如果当前元素高度与栈顶元素高度相等，也会触发这个循环。在这种情况下，会弹出栈顶元素，因为相等高度的柱子不能形成蓄水区域，所以不需要保留在栈中。<br>例如，如果有连续的相同高度的柱子，当遍历到下一个更高的柱子时，这些相同高度的柱子会依次被弹出栈，不会在栈中留下重复的高度。</p>
+<h3 id="901-股票价格跨度"><a href="#901-股票价格跨度" class="headerlink" title="901.股票价格跨度"></a>901.股票价格跨度</h3><p>运用了 <code>private final Deque&lt;int[]&gt; st = new ArrayDeque&lt;&gt;();</code> 用于存储股票价格以及对应的日期信息。</p>
+<p><code>st.push(new int[]&#123;-1, Integer.MAX_VALUE&#125;);</code> 在后续的操作中作为边界条件，确保栈在任何时候都至少有一个元素。第一天的日期信息为0。</p>
+<p>假设我们有一系列的股票价格传入，依次为：[100, 80, 90, 110, 105, 95]。</p>
+<ol>
+<li>首先初始化：<ul>
+<li>双端队列<code>st</code>中有初始元素<code>[-1, Integer.MAX_VALUE]</code>，当前日期<code>curday = -1</code>。</li>
+</ul>
+</li>
+<li>传入第一个价格 100：<ul>
+<li>进入<code>while</code>循环，由于<code>100 &lt; Integer.MAX_VALUE</code>，不满足循环条件。</li>
+<li>计算跨度：<code>ans = ++curday - st.peek()[0] = 0 - (-1) = 1</code>。</li>
+<li>将当前日期和价格推入栈：<code>st.push(new int[]&#123;0, 100&#125;)</code>。</li>
+</ul>
+</li>
+<li>传入第二个价格 80：<ul>
+<li>进入<code>while</code>循环，<code>80 &lt; 100</code>，不满足循环条件。</li>
+<li>计算跨度：<code>ans = ++curday - st.peek()[0] = 1 - 0 = 1</code>。</li>
+<li>将当前日期和价格推入栈：<code>st.push(new int[]&#123;1, 80&#125;)</code>。</li>
+</ul>
+</li>
+<li>传入第三个价格 90：<ul>
+<li>进入<code>while</code>循环，<code>90 &gt; 80</code>，满足循环条件，弹出栈顶元素<code>[1, 80]</code>。</li>
+<li>继续检查，此时栈顶为<code>[0, 100]</code>，<code>90 &lt; 100</code>，不满足循环条件。</li>
+<li>计算跨度：<code>ans = ++curday - st.peek()[0] = 2 - 0 = 2</code>。</li>
+<li>将当前日期和价格推入栈：<code>st.push(new int[]&#123;2, 90&#125;)</code>。</li>
+</ul>
+</li>
+<li>传入第四个价格 110：<ul>
+<li>进入<code>while</code>循环，<code>110 &gt; 90</code>，满足循环条件，弹出栈顶元素<code>[2, 90]</code>。</li>
+<li>继续检查，此时栈顶为<code>[0, 100]</code>，<code>110 &gt; 100</code>，满足循环条件，弹出栈顶元素<code>[0, 100]</code>。</li>
+<li>此时栈为空，不满足循环条件。</li>
+<li>计算跨度：<code>ans = ++curday - st.peek()[0] = 3 - (-1) = 4</code>。</li>
+<li>将当前日期和价格推入栈：<code>st.push(new int[]&#123;3, 110&#125;)</code>。</li>
+</ul>
+</li>
+<li>传入第五个价格 105：<ul>
+<li>进入<code>while</code>循环，<code>105 &lt; 110</code>，不满足循环条件。</li>
+<li>计算跨度：<code>ans = ++curday - st.peek()[0] = 4 - 3 = 1</code>。</li>
+<li>将当前日期和价格推入栈：<code>st.push(new int[]&#123;4, 105&#125;)</code>。</li>
+</ul>
+</li>
+<li>传入第六个价格 95：<ul>
+<li>进入<code>while</code>循环，<code>95 &lt; 105</code>，不满足循环条件。</li>
+<li>计算跨度：<code>ans = ++curday - st.peek()[0] = 5 - 4 = 1</code>。</li>
+<li>将当前日期和价格推入栈：<code>st.push(new int[]&#123;5, 95&#125;)</code>。</li>
+</ul>
+</li>
+</ol>
+<p>通过这个例子可以看到，每次传入一个价格，都会通过检查栈顶元素来确定当前价格的持续区间，从而计算出价格跨度。如果当前价格大于等于栈顶价格，说明栈顶对应的日期在当前价格的持续区间内，所以将其弹出，直到找到一个价格大于当前价格的栈顶元素或者栈为空。</p>
 <h2 id="求前k个高频元素"><a href="#求前k个高频元素" class="headerlink" title="求前k个高频元素"></a>求前k个高频元素</h2><p>1、统计元素出现频率（使用map进行统计）</p>
 <p>2、对频率排序（使用一种容器适配器——优先级队列）</p>
 <p>3、找出前k个高频元素</p>
@@ -324,6 +376,13 @@
 <p>步骤为：1、根据出现频率构建map</p>
 <p>2、构建小顶堆，将所有频率加入到堆中，如果堆的大小大于k，就将元素从堆顶弹出</p>
 <p>3、倒叙构建数组</p>
+<h1 id="Java语法"><a href="#Java语法" class="headerlink" title="Java语法"></a>Java语法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//建栈：</span></span><br><span class="line">Deque&lt;Integer&gt; st = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line"><span class="comment">//判断栈非空</span></span><br><span class="line">!st.isEmpty();</span><br><span class="line"><span class="comment">//出栈</span></span><br><span class="line">st.pop();</span><br><span class="line"><span class="comment">//入栈</span></span><br><span class="line">st.push();</span><br><span class="line"><span class="comment">//获取栈顶</span></span><br><span class="line">st.peek();</span><br></pre></td></tr></table></figure>
+
+<p>哈希表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//建表</span></span><br><span class="line">Map&lt;Integer, Integer&gt; idx = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(n);</span><br><span class="line"><span class="comment">//赋值</span></span><br><span class="line">idx.put(key, value);</span><br><span class="line"><span class="comment">//取值</span></span><br><span class="line">idx.get(key);</span><br></pre></td></tr></table></figure>
+
+
+
 
     </div>
 
@@ -425,7 +484,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#03-01-%E4%B8%89%E5%90%88%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">03.01.三合一</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88"><span class="nav-number"></span> <span class="nav-text">单调栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E5%89%8Dk%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0"><span class="nav-number"></span> <span class="nav-text">求前k个高频元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E9%98%9F%E5%88%97"><span class="nav-number">0.1.</span> <span class="nav-text">优先级队列</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#03-01-%E4%B8%89%E5%90%88%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">03.01.三合一</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88"><span class="nav-number"></span> <span class="nav-text">单调栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#42-%E6%8E%A5%E9%9B%A8%E6%B0%B4"><span class="nav-number">1.</span> <span class="nav-text">42.接雨水</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#901-%E8%82%A1%E7%A5%A8%E4%BB%B7%E6%A0%BC%E8%B7%A8%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">901.股票价格跨度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E5%89%8Dk%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0"><span class="nav-number"></span> <span class="nav-text">求前k个高频元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E9%98%9F%E5%88%97"><span class="nav-number">0.1.</span> <span class="nav-text">优先级队列</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E8%AF%AD%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">Java语法</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -441,7 +500,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -454,7 +513,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -490,12 +549,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">93k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

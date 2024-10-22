@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="前言​	在学习计算机网络时掌握得不够好，故重新学习，偏重于理解。本文记录学习过程中的思考与理解，不涉及全部内容。">
+  <meta name="description" content="[TOC] 前言​	在学习计算机网络时掌握得不够好，故重新学习，偏重于理解。本文记录学习过程中的思考与理解，不涉及全部内容。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络">
 <meta property="og:url" content="http://miraisen.github.io/2024/02/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="Miraisen">
-<meta property="og:description" content="前言​	在学习计算机网络时掌握得不够好，故重新学习，偏重于理解。本文记录学习过程中的思考与理解，不涉及全部内容。">
+<meta property="og:description" content="[TOC] 前言​	在学习计算机网络时掌握得不够好，故重新学习，偏重于理解。本文记录学习过程中的思考与理解，不涉及全部内容。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://miraisen.github.io/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240227205711265.png">
 <meta property="og:image" content="http://miraisen.github.io/2024/02/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Users/86159/AppData/Roaming/Typora/typora-user-images/image-20240227210920371.png">
@@ -48,7 +48,7 @@
 <meta property="og:image" content="http://miraisen.github.io/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240319163242902.png">
 <meta property="og:image" content="http://miraisen.github.io/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image-20240323155549763.png">
 <meta property="article:published_time" content="2024-02-05T14:36:45.000Z">
-<meta property="article:modified_time" content="2024-04-07T14:19:46.123Z">
+<meta property="article:modified_time" content="2024-10-08T07:20:30.350Z">
 <meta property="article:author" content="kaisei">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
@@ -246,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-07 22:19:46" itemprop="dateModified" datetime="2024-04-07T22:19:46+08:00">2024-04-07</time>
+                <time title="修改时间：2024-10-08 15:20:30" itemprop="dateModified" datetime="2024-10-08T15:20:30+08:00">2024-10-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.7k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -290,10 +290,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>​	在学习计算机网络时掌握得不够好，故重新学习，偏重于理解。本文记录学习过程中的思考与理解，不涉及全部内容。</p>
+        <p>[TOC]</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>​	在学习计算机网络时掌握得不够好，故重新学习，偏重于理解。本文记录学习过程中的思考与理解，不涉及全部内容。</p>
 <span id="more"></span>
 
-<hr>
+
+
 <h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><p>区分k与K，k在速率中代表10^3，K在比特中代表2^10。</p>
 <p>在模拟信号系统中，<strong>带宽</strong>是信号的频率范围，所以单位和频率相同，包括Hz，kHz，MHz，GHz；在计算机网络中，表示通信线路的传输能力，即单位时间内通过的“最高数据率”，基本单位是b&#x2F;s，直接关系网络应用体验。</p>
 <p>吞吐量是单位时间内通过的数据率，用于测量实际上有多少数据能够通过网络。受网络的带宽或额定速率限制。</p>
@@ -493,6 +495,12 @@
 <li>一个UDP用户数据报由首部和数据载荷两部分构成。首部非常简单，仅有8个字节。</li>
 </ul>
 <p>TCP报文段也由首部和数据部分构成，但首部要复杂得多，最小为20字节。</p>
+<h2 id="以太网交换机自学习和转发帧的过程"><a href="#以太网交换机自学习和转发帧的过程" class="headerlink" title="以太网交换机自学习和转发帧的过程"></a>以太网交换机自学习和转发帧的过程</h2><p>以太网交换机工作在数据链路层（也包括物理层），市场上也有包含网络层部分功能的交换机（称为三层交换机）</p>
+<p>以太网交换机收到帧后，在帧交换表中查找帧的目的MAC地址对应的接口号，通过该接口转发帧。</p>
+<p>以太网交换机是一种即插即用的设备，该上电启动时其内部的帧交换表是空的。随着网络中各主机间的通信，以太网交换机通过<strong>自学习算法</strong>自动逐渐建立起帧交换表。</p>
+<p>自学习算法的流程就是 登记 + 转发（盲目泛洪）+ 转发（明确）</p>
+<p>需要注意的是，帧交换表中的每条记录都有自己的有效时间，到期自动删除。这是因为MAC地址与交换机接口的对应关系并不是永久性的。</p>
+<p>PDU（Protocol Data Unit）协议数据单元。MAC地址又称硬件地址或物理地址。</p>
 
     </div>
 
@@ -593,7 +601,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E5%8D%8F%E8%AE%AESW%EF%BC%88Stop-and-Wait%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">停止等待协议SW（Stop-and-Wait）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E9%80%80N%E5%B8%A7%E5%8D%8F%E8%AE%AEGBN"><span class="nav-number">1.3.2.</span> <span class="nav-text">回退N帧协议GBN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E9%87%8D%E4%BC%A0%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.3.3.</span> <span class="nav-text">选择重传协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSMA-CA%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BF%A1%E9%81%93%E9%A2%84%E7%BA%A6%E5%92%8C%E8%99%9A%E6%8B%9F%E8%BD%BD%E6%B3%A2%E7%9B%91%E5%90%AC"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">CSMA&#x2F;CA协议的信道预约和虚拟载波监听</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BA%BF%E5%99%A8%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">集线器与交换机的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E5%92%8CUDP%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.</span> <span class="nav-text">TCP和UDP的对比</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E5%8D%8F%E8%AE%AESW%EF%BC%88Stop-and-Wait%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">停止等待协议SW（Stop-and-Wait）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E9%80%80N%E5%B8%A7%E5%8D%8F%E8%AE%AEGBN"><span class="nav-number">1.3.2.</span> <span class="nav-text">回退N帧协议GBN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E9%87%8D%E4%BC%A0%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.3.3.</span> <span class="nav-text">选择重传协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CSMA-CA%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BF%A1%E9%81%93%E9%A2%84%E7%BA%A6%E5%92%8C%E8%99%9A%E6%8B%9F%E8%BD%BD%E6%B3%A2%E7%9B%91%E5%90%AC"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">CSMA&#x2F;CA协议的信道预约和虚拟载波监听</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BA%BF%E5%99%A8%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.</span> <span class="nav-text">集线器与交换机的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E5%92%8CUDP%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.</span> <span class="nav-text">TCP和UDP的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%A4%E6%8D%A2%E6%9C%BA%E8%87%AA%E5%AD%A6%E4%B9%A0%E5%92%8C%E8%BD%AC%E5%8F%91%E5%B8%A7%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">以太网交换机自学习和转发帧的过程</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -609,7 +617,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -622,7 +630,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -658,12 +666,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">93k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
