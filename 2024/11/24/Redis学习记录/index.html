@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="It&#39;s Our Night to Shine">
+  <meta name="description" content="学习Redis过程中的一些思考记录，并非笔记整理。 问题解答 来源：https:&#x2F;&#x2F;www.itbaima.cn&#x2F;document&#x2F;jjlolj5igvttvyhv#doc1-Redis%E6%95%B0%E6%8D%AE%E5%BA%93  乐观锁“乐观锁：并不认为会有人来抢占资源，所以会直接对数据进行操作，在操作时再去验证是否有其他人抢占资源。”所以乐观锁意味着资源有可能被抢占？ 是的。在乐观">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode位运算篇">
-<meta property="og:url" content="http://miraisen.github.io/2024/07/26/LeetCode%E6%95%B0%E4%B8%8E%E4%BD%8D%E7%AF%87/index.html">
+<meta property="og:title" content="Redis学习记录">
+<meta property="og:url" content="http://miraisen.github.io/2024/11/24/Redis%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Miraisen">
-<meta property="og:description" content="It&#39;s Our Night to Shine">
+<meta property="og:description" content="学习Redis过程中的一些思考记录，并非笔记整理。 问题解答 来源：https:&#x2F;&#x2F;www.itbaima.cn&#x2F;document&#x2F;jjlolj5igvttvyhv#doc1-Redis%E6%95%B0%E6%8D%AE%E5%BA%93  乐观锁“乐观锁：并不认为会有人来抢占资源，所以会直接对数据进行操作，在操作时再去验证是否有其他人抢占资源。”所以乐观锁意味着资源有可能被抢占？ 是的。在乐观">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-26T14:18:01.000Z">
-<meta property="article:modified_time" content="2024-07-26T14:21:12.705Z">
+<meta property="article:published_time" content="2024-11-24T13:15:07.000Z">
+<meta property="article:modified_time" content="2024-11-24T13:30:50.066Z">
 <meta property="article:author" content="kaisei">
-<meta property="article:tag" content="位运算">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://miraisen.github.io/2024/07/26/LeetCode%E6%95%B0%E4%B8%8E%E4%BD%8D%E7%AF%87/">
+<link rel="canonical" href="http://miraisen.github.io/2024/11/24/Redis%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>LeetCode位运算篇 | Miraisen</title>
+  <title>Redis学习记录 | Miraisen</title>
   
 
 
@@ -196,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/07/26/LeetCode%E6%95%B0%E4%B8%8E%E4%BD%8D%E7%AF%87/">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2024/11/24/Redis%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -209,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          LeetCode位运算篇
+          Redis学习记录
         </h1>
 
         <div class="post-meta">
@@ -221,7 +221,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-07-26 22:18:01 / 修改时间：22:21:12" itemprop="dateCreated datePublished" datetime="2024-07-26T22:18:01+08:00">2024-07-26</time>
+              <time title="创建时间：2024-11-24 21:15:07 / 修改时间：21:30:50" itemprop="dateCreated datePublished" datetime="2024-11-24T21:15:07+08:00">2024-11-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,7 +229,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                  <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
                 </span>
             </span>
 
@@ -246,7 +246,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>559</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -265,7 +265,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>学习Redis过程中的一些思考记录，并非笔记整理。</p>
+<h1 id="问题解答"><a href="#问题解答" class="headerlink" title="问题解答"></a>问题解答</h1><blockquote>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.itbaima.cn/document/jjlolj5igvttvyhv#doc1-Redis%E6%95%B0%E6%8D%AE%E5%BA%93">https://www.itbaima.cn/document/jjlolj5igvttvyhv#doc1-Redis%E6%95%B0%E6%8D%AE%E5%BA%93</a></p>
+</blockquote>
+<h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>“乐观锁：并不认为会有人来抢占资源，所以会直接对数据进行操作，在操作时再去验证是否有其他人抢占资源。”所以乐观锁意味着资源有可能被抢占？</p>
+<p>是的。在乐观锁机制中，当事务遇到更新失败的情况，通常会有重试机制。乐观锁的好处是避免了像悲观锁那样长时间的加锁阻塞。</p>
+<p>在Redis中，如果执行事务之前被监视的目标发生了修改，就会取消本次事务。</p>
+<h2 id="Mybatis二级缓存"><a href="#Mybatis二级缓存" class="headerlink" title="Mybatis二级缓存"></a>Mybatis二级缓存</h2><p>什么是二级缓存</p>
+<p>二级缓存的作用：<br><strong>数据和指令预取</strong>：二级缓存会根据处理器的运行模式和当前执行任务的特点，提前预取可能接下来会用到的数据和指令。例如，当处理器正在执行一段循环程序时，二级缓存可能会预取循环体中的后续指令和相关数据，以便在处理器需要时能够快速提供，减少等待时间。<br><strong>降低内存访问延迟</strong>：由于其相对较大的容量和较快的速度，当一级缓存未命中（即一级缓存中没有处理器所需的数据或指令）时，二级缓存就成为了重要的补充。它能够以比主内存更快的速度提供所需内容，从而有效降低了整个系统因频繁访问主内存而产生的访问延迟，提高了系统的运行效率。</p>
+
     </div>
 
     
@@ -280,7 +289,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://miraisen.github.io/2024/07/26/LeetCode%E6%95%B0%E4%B8%8E%E4%BD%8D%E7%AF%87/" title="LeetCode位运算篇">http://miraisen.github.io/2024/07/26/LeetCode数与位篇/</a>
+    <a href="http://miraisen.github.io/2024/11/24/Redis%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Redis学习记录">http://miraisen.github.io/2024/11/24/Redis学习记录/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -291,7 +300,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag"># 位运算</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
           </div>
 
         
@@ -300,12 +309,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/07/22/LeetCode%E5%93%88%E5%B8%8C%E8%A1%A8%E7%AF%87/" rel="prev" title="LeetCode哈希表篇">
-      <i class="fa fa-chevron-left"></i> LeetCode哈希表篇
+    <a href="/2024/10/24/LeetCode%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E7%AF%87/" rel="prev" title="LeetCode二分查找篇">
+      <i class="fa fa-chevron-left"></i> LeetCode二分查找篇
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/07/26/LeetCode%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AF%87/" rel="next" title="LeetCode数与位篇">
-      LeetCode数与位篇 <i class="fa fa-chevron-right"></i>
+    <a href="/2024/11/29/%E5%AD%A6%E4%B9%A0%E5%9D%90%E6%A0%87%E5%9B%BE/" rel="next" title="学习坐标图">
+      学习坐标图 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -365,6 +374,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94"><span class="nav-number">1.</span> <span class="nav-text">问题解答</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">1.1.</span> <span class="nav-text">乐观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">1.2.</span> <span class="nav-text">Mybatis二级缓存</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -380,20 +390,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -420,7 +430,7 @@
 <div class="copyright">
   
   &copy; 2023/10/8 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -429,12 +439,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">113k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:24</span>
+    <span title="站点阅读时长">1:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

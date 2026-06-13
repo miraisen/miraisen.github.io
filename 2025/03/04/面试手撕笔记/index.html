@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons8-orange-neon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons8-orange-neon-16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"miraisen.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="[TOC] 前言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试手撕笔记">
+<meta property="og:url" content="http://miraisen.github.io/2025/03/04/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Miraisen">
+<meta property="og:description" content="[TOC] 前言">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://miraisen.github.io/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250318111733770.png">
+<meta property="og:image" content="http://miraisen.github.io/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250308105919550.png">
+<meta property="og:image" content="http://miraisen.github.io/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250308170411573-1741424652909-1.png">
+<meta property="article:published_time" content="2025-03-04T06:05:14.000Z">
+<meta property="article:modified_time" content="2025-03-21T10:23:09.403Z">
+<meta property="article:author" content="kaisei">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://miraisen.github.io/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250318111733770.png">
+
+<link rel="canonical" href="http://miraisen.github.io/2025/03/04/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>面试手撕笔记 | Miraisen</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Miraisen</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://miraisen.github.io/2025/03/04/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="kaisei">
+      <meta itemprop="description" content="It's Our Night to Shine">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Miraisen">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试手撕笔记
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-03-04 14:05:14" itemprop="dateCreated datePublished" datetime="2025-03-04T14:05:14+08:00">2025-03-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-03-21 18:23:09" itemprop="dateModified" datetime="2025-03-21T18:23:09+08:00">2025-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>[TOC]</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><span id="more"></span>
+
+<p>因为前面的力扣系列是分板块记录的，并且不一定是面试高频题，因此分了这样一块专门用于面试准备刷题的笔记记录以及复习。在记录上也尽力做到和面试相关。</p>
+<h1 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h1><h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><h3 id="402-移掉K位数字"><a href="#402-移掉K位数字" class="headerlink" title="402.移掉K位数字"></a>402.移掉K位数字</h3><p>思路：利用栈结构，通过贪心算法来保证在移除k个数字后，剩下的数字组成的数最小。</p>
+<p>遍历字符串、压栈、遍历结束后还有剩余的移除次数，从栈的末尾弹出相应数量的数组。</p>
+<p>把栈中的元素拼接成字符串，去除前导零。如果结果字符串为空，返回”0”。</p>
+<p>要点：栈、贪心、字符串</p>
+<p>遍历字符串：<code>for(char digit : num.toCharArray())</code></p>
+<p>去除前导零：统计前导零的最后一个下标startIndex <code>result = result.subString(startIndex)</code></p>
+<p>在栈的实现类选取上：</p>
+<p><strong>Stack</strong>：Java早期提供的用于实现栈数据结构的类，继承自Vector类。Vector是线程安全的动态数组，意味着Stack也是线程安全的，但其线程安全是通过在方法上加synchronized关键字实现的，在单线程环境下会带来额外的性能开销。</p>
+<blockquote>
+<p>八股：Vector和Stack的区别？</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stack&lt;T&gt; stack = <span class="keyword">new</span> <span class="title class_">Stack</span>&lt;&gt;();</span><br><span class="line">stack.push();</span><br><span class="line">stack.pop();</span><br><span class="line">stack.peek();</span><br></pre></td></tr></table></figure>
+
+<p><strong>Deque</strong>：是一个接口，即双端队列(Double - Ended Queue)，继承自Queue接口。Deque接口定义了可以在队列两端进行插入、删除和访问元素的方法，既可以当作栈使用，也可以当作队列使用。</p>
+<p><strong>ArrayDeque</strong>：是Deque接口的一个具体实现类，基于数组实现，内部使用循环数组来存储元素。实现了Deque接口的所有方法，具备双端队列的功能，随机访问性能较好，没有容量限制（自动扩容）。</p>
+<p>在 Java 中，可以使用 Deque 接口当作栈来使用，Deque 提供了栈操作所需的方法，如 push()、pop() 和 peek() 等。通常会选择 <code>ArrayDeque</code> 或 <code>LinkedList</code> 作为 Deque 接口的具体实现类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;T&gt; stack = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">stack.push();</span><br><span class="line">stack.peek();</span><br><span class="line">stack.pop();</span><br></pre></td></tr></table></figure>
+
+<p><strong>空栈处理</strong>：</p>
+<ul>
+<li>Stack抛出EmptyStackException异常。</li>
+<li>ArrayDeque：当调用removeFirst()或peekFirst()方法时，如果队列为空，removeFirst()会抛出NoSuchElementException异常，peekFirst()会返回null。还提供了pollFirst()方法，当队列为空时返回null，不会抛出异常。</li>
+</ul>
+<p><strong>总结</strong>：</p>
+<ul>
+<li><p>如果需要在多线程环境下使用栈，并且对线程安全有严格要求，可以使用 Stack 类。</p>
+</li>
+<li><p>在单线程环境下，推荐使用 ArrayDeque 来实现栈的功能，因为它性能更好，并且提供了丰富的操作方法。</p>
+</li>
+<li><p>当需要当作栈使用的 Deque 时，推荐优先使用 ArrayDeque，因为它通常在性能上更具优势。</p>
+</li>
+<li><p>若需要频繁进行插入和删除操作，且可能涉及到链表操作的特性（如随机访问等），可以考虑使用 LinkedList。</p>
+</li>
+</ul>
+<hr>
+<p>对于本题，选择Stack和ArrayDeque的处理不一样。</p>
+<p>在遍历栈元素构建字符串时</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">char</span> digit : st)&#123;</span><br><span class="line">    result.append(digit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于Stack是对的。但使用Deque就会得到错误的顺序，因为增强for循环是从Deque的头部开始遍历，我们需要的是从尾部开始遍历。正确的做法是使用pollLast()方法逐个取出尾部元素构建结果字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!st.isEmpty())&#123;</span><br><span class="line">	result.append(st.pollLast());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="71-简化路径"><a href="#71-简化路径" class="headerlink" title="71.简化路径"></a>71.简化路径</h3><p>对于处理回退，使用栈结构是一种更合适的方式，这样可以更方便地处理目录的层级关系。</p>
+<p><strong>使用栈结构</strong>：创建一个 Stack 来存储路径中的目录名。遍历分割后的路径数组，当遇到 .. 时，如果栈不为空，则弹出栈顶元素，表示回到上一级目录；当遇到 . 或空字符串时，直接跳过；当遇到其他目录名时，将其压入栈中。<br><strong>构建最终路径</strong>：遍历栈中的元素，将它们依次添加到 StringBuilder 中，并在每个元素前添加 &#x2F;。<br><strong>处理边界情况：</strong>如果最终的 StringBuilder 为空，说明路径简化后为空，返回 &#x2F;；否则，将 StringBuilder 转换为字符串并返回。</p>
+<h4 id="降低空间复杂度"><a href="#降低空间复杂度" class="headerlink" title="降低空间复杂度"></a>降低空间复杂度</h4><p>借助一个指针遍历字符串：碰到连续的&#x2F;直接跳过，遇到非&#x2F;字符时，把它们提取出来作为一个目录名。</p>
+<p>跳过连续的’&#x2F;‘ <code>while(i &lt; n &amp;&amp; path.charAt(i)==&#39;/&#39;) i++;</code></p>
+<p>提取目录名 <code>while(i&lt;n &amp;&amp; path.charAt(i) != &#39;/&#39;)&#123; dir.append(path.charAt(i)); i++;&#125;</code></p>
+<p>其他的就和原来的方法一样。</p>
+<h3 id="相邻重复元素消除"><a href="#相邻重复元素消除" class="headerlink" title="相邻重复元素消除"></a>相邻重复元素消除</h3><p>相邻重复元素消除 AABCCB</p>
+<p>输出：BB</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><h3 id="73-矩阵置零"><a href="#73-矩阵置零" class="headerlink" title="73.矩阵置零"></a>73.矩阵置零</h3><p>要求是仅使用常量空间。使用第一列作为该行是否需要置零的标识。先遍历第一列，如果第一列有零，表示第一列也需要置零，但是先不要置零，因为我们要使用第一列作为标识。</p>
+<p>然后置零是判断这一行或者这一列有零就把该元素置为零。要注意的是使用倒序遍历，避免修改标记信息。</p>
+<p>通过从矩阵的右下角开始逐行逐列地遍历，我们可以确保在修改当前元素时，不会影响到后续元素的判断依据。因为我们是从后往前处理，所以在处理当前元素时，其对应的第一行和第一列的标记信息仍然是原始的标记信息，没有被后续的修改所破坏。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row - <span class="number">1</span>;i &gt;= <span class="number">0</span>;i--)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> col - <span class="number">1</span>;j&gt;=<span class="number">1</span>;j--)&#123;</span><br><span class="line">         <span class="keyword">if</span>(matrix[i][<span class="number">0</span>] == <span class="number">0</span> || matrix[<span class="number">0</span>][j] == <span class="number">0</span>)&#123;</span><br><span class="line">              matrix[i][j] = <span class="number">0</span>;</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(col0_flag) matrix[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p><img src="/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250318111733770.png" alt="image-20250318111733770"></p>
+<h3 id="49-字母异位词分组"><a href="#49-字母异位词分组" class="headerlink" title="49.字母异位词分组"></a>49.字母异位词分组</h3><p>如果满足条件，排序后的字符串是相同的。字符串排序的方法是把字符串转为字符数组再用Arrays的sort方法。排序复杂度为O(mlogm)</p>
+<p>用哈希表分组，把排序后的字符串当作key，原字符串组成的列表当作value。</p>
+<p>用<code>computeIfAbsent</code>方法检查是否存在以排序后的字符串（字符数组s转字符串） <code>new String(s)</code> 为键的映射。如果不存在，就创建一个新的<code>ArrayList&lt;&gt;</code>作为该键对应的值，如果存在就获取该键对应的值，最后将str这个字符串添加到这个<code>List</code>中。</p>
+<p><code>computeIfAbsent</code>方法返回的是键对应的值。</p>
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><p>解决组合优化、搜索等问题。通过深度优先搜索的方式来遍历问题的解空间数，以寻找满足特定条件的解或最优解的算法。</p>
+<p>原理：利用深度优先搜索策略，从问题的初始状态出发，递归地尝试所有可能的选择，在每一步选择时，判断当前状态是否满足问题的约束条件。如果满足，则继续递归探索下一个状态；如果不满足，则回溯到上一个状态，尝试其他选择。</p>
+<ol>
+<li><strong>定义解空间</strong>：确定问题的所有可能解的集合，通常可以用一个树形结构来表示，称为解空间树。例如，对于一个字符串的全排列问题，解空间树的根节点表示空字符串，每个分支表示在当前字符串后面添加一个字符，叶子节点就是所有的全排列结果。</li>
+<li><strong>确定约束条件</strong>：明确问题的约束条件，用于判断当前状态是否合法。比如在八皇后问题中，约束条件是任意两个皇后不能在同一行、同一列或同一斜线上。</li>
+<li><strong>深度优先搜索</strong>：从根节点开始，按照深度优先的顺序遍历解空间树。在每个节点处，根据约束条件判断是否可以继续扩展当前节点。如果可以，则选择一个未尝试过的子节点进行递归搜索；如果不可以，则回溯到父节点，尝试其他子节点。</li>
+<li><strong>记录解</strong>：当找到一个满足问题要求的解时，将其记录下来。可以根据具体问题的要求，决定是继续寻找其他解还是直接结束算法。</li>
+</ol>
+<h3 id="46-全排列"><a href="#46-全排列" class="headerlink" title="46.全排列"></a>46.全排列</h3><p>size()用于获取集合中元素的数量，如List、Set、Map。</p>
+<p>数组使用length属性来获取数组的长度。</p>
+<p>String类使用length()方法获取字符串的字符个数。</p>
+<p>除了回溯法还可以用递归交换法。通过递归地交换数组中的元素来生成所有排列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; result, <span class="type">int</span>[] nums, <span class="type">int</span> start)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (start == nums.length) &#123;</span><br><span class="line">           List&lt;Integer&gt; permutation = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">           <span class="keyword">for</span> (<span class="type">int</span> num : nums) &#123;</span><br><span class="line">               permutation.add(num);</span><br><span class="line">           &#125;</span><br><span class="line">           result.add(permutation);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; nums.length; i++) &#123;</span><br><span class="line">           swap(nums, start, i);</span><br><span class="line">           backtrack(result, nums, start + <span class="number">1</span>);</span><br><span class="line">           swap(nums, start, i);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于引用类型的参数，不需要显式传回就能在方法外部使用修改后的对象，是因为方法内外的变量指向的是同一个对象，方法内对对象的修改会直接反映到该对象上。</p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeNode</span>&#123;</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	TreeNode left;</span><br><span class="line">	TreeNode right;</span><br><span class="line">	TreeNode() &#123;&#125;</span><br><span class="line">	TreeNode(<span class="type">int</span> val)&#123; <span class="built_in">this</span>.val = val;&#125;</span><br><span class="line">	TreeNode(<span class="type">int</span> val, TreeNode left, TreeNode right)&#123;</span><br><span class="line">		<span class="built_in">this</span>.val = val;</span><br><span class="line">		<span class="built_in">this</span>.left = left;</span><br><span class="line">		<span class="built_in">this</span>.right = right;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于任何二叉树，都可以通过广度优先搜索和深度优先搜索计算节点个数，时间复杂度和复杂度都是O(n)。</p>
+<p>递归：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countNodes</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> countNodes(root.left) + countNodes(root.right) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完全二叉树 的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层（从第 0 层开始），则该层包含 1~ 2h 个节点。</p>
+<h3 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112.路径总和"></a>112.路径总和</h3><p>用递归，只要递归能到达，说明一定是可达路径。递归边界为空节点，就是叶子节点的子节点。</p>
+<p>判断叶子节点可以用 <code>if(root.left == root.right)</code> 此时判断targetSum是否为0。</p>
+<h3 id="222-完全二叉树的节点个数"><a href="#222-完全二叉树的节点个数" class="headerlink" title="222.完全二叉树的节点个数"></a>222.完全二叉树的节点个数</h3><p>规定根节点位于第0层，完全二叉树最左边的节点一定位于最底层，因此从根节点出发，每次访问左子节点，直到遇到叶子节点，该叶子节点即为完全二叉树的最左边的节点，经过的路径长度就是最大层数h。</p>
+<p>对于最大层数为h的完全二叉树，节点个数一定在 $[2^h, 2^(h+1)-1]$的范围内。</p>
+<p>可以在该范围内通过二分查找的方式得到完全二叉树的节点个数。</p>
+<p>计算$2^h$最快的方法是移位计算，<code>(1 &lt;&lt; h)</code></p>
+<p>好理解一点的方法：</p>
+<p>对左右子树进行高度统计，记为left和right，有两种情况：left &#x3D;&#x3D; right、left !&#x3D; right。分别表示</p>
+<ul>
+<li><p>左子树是满二叉树</p>
+<p>左子树的节点总数等于 2^left - 1 加上root节点，刚好是2 ^ left。再对右子树进行递归统计。</p>
+</li>
+<li><p>最后一层不满，倒数第二层已经满了</p>
+<p>可以直接得到右子树的节点个数，同理是2^right。再对左子树进行递归查找。</p>
+</li>
+</ul>
+<h2 id="面经题单"><a href="#面经题单" class="headerlink" title="面经题单"></a>面经题单</h2><h3 id="美团"><a href="#美团" class="headerlink" title="美团"></a>美团</h3><p>21.合并两个有序链表</p>
+<p>20.有效的括号</p>
+<p>112.路径总和</p>
+<p>23.合并k个升序链表</p>
+<p>大数相加</p>
+<h1 id="笔试"><a href="#笔试" class="headerlink" title="笔试"></a>笔试</h1><h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><p>scanner</p>
+<p>.split(String)</p>
+<h2 id="数组和字符串"><a href="#数组和字符串" class="headerlink" title="数组和字符串"></a>数组和字符串</h2><p>常见题型：数组操作、字符串匹配、子数组&#x2F;子字符串问题</p>
+<p>常用方法：</p>
+<ul>
+<li>双指针：滑动窗口、两数之和等问题</li>
+<li>前缀和：快速计算子数组的和</li>
+<li>哈希表：快速查找和去重</li>
+</ul>
+<p>集合转数组 .toArray(new int[0])</p>
+<p><img src="/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250308105919550.png" alt="image-20250308105919550"></p>
+<p>找到所有可能的区间[l, r]，使得删除这个区间后，剩下的数组是单调不降的。</p>
+<ul>
+<li>确定初始和结束位置：找到数组中最长的前缀和后缀，使得它们已经是单调不降的，确定哪些区间可以被删除而不影响整个数组的有序性。</li>
+<li>计算有效区间：对于每一个可能的l，我们需要找到所有可能的r，使得删除[l, r]后，剩下的数组是单调不降的，这可以通过遍历数组并检查每个可能的区间来实现。</li>
+<li>统计所有满足条件的区间[l, r]的数量。</li>
+</ul>
+<p>❗这种解法还不能通过，待解决</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">        <span class="type">int</span>[] nums = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            nums[i] = in.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Find the longest non-decreasing prefix</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">prefix</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (prefix + <span class="number">1</span> &lt; n &amp;&amp; nums[prefix] &lt;= nums[prefix + <span class="number">1</span>]) &#123;</span><br><span class="line">            prefix++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Find the longest non-decreasing suffix</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">suffix</span> <span class="operator">=</span> n - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (suffix - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; nums[suffix - <span class="number">1</span>] &lt;= nums[suffix]) &#123;</span><br><span class="line">            suffix--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If the entire array is already non-decreasing</span></span><br><span class="line">        <span class="keyword">if</span> (prefix &gt;= suffix) &#123;</span><br><span class="line">            System.out.println(n * (n + <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Count the valid intervals</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> suffix; r &lt; n; r++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (l &lt;= prefix &amp;&amp; nums[l] &lt;= nums[r]) &#123;</span><br><span class="line">                l++;</span><br><span class="line">            &#125;</span><br><span class="line">            count += l;</span><br><span class="line">        &#125;</span><br><span class="line">        count += <span class="number">1</span>;</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>常见题型：链表反转、链表合并、链表环检测</p>
+<p>常用方法：</p>
+<ul>
+<li>快慢指针：用于检测链表环、找到链表中点</li>
+<li>递归：用于链表反转等问题</li>
+</ul>
+<h2 id="树和图"><a href="#树和图" class="headerlink" title="树和图"></a>树和图</h2><p>常见题型：树的遍历、二叉搜索树、图的遍历</p>
+<p>常用方法：</p>
+<ul>
+<li>深度优先搜索：用于树的遍历、图的连通性检测</li>
+<li>广度优先搜索：用于最短路径、层次遍历</li>
+</ul>
+<h3 id="最短路径问题"><a href="#最短路径问题" class="headerlink" title="最短路径问题"></a>最短路径问题</h3><p>使用邻接表graph来表示树，graph[i]存储从节点i出发的所有边的信息，每个边用Node类表示，包含目标节点to和距离distance。</p>
+<h4 id="单源最短路径问题-——-Dijkstra算法"><a href="#单源最短路径问题-——-Dijkstra算法" class="headerlink" title="单源最短路径问题 —— Dijkstra算法"></a>单源最短路径问题 —— Dijkstra算法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> to;</span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line"></span><br><span class="line">    Edge(<span class="type">int</span> to, <span class="type">int</span> weight) &#123;</span><br><span class="line">        <span class="built_in">this</span>.to = to;</span><br><span class="line">        <span class="built_in">this</span>.weight = weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DijkstraTemplate</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">INF</span> <span class="operator">=</span> Integer.MAX_VALUE / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Dijkstra算法求单源最短路径</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">int</span>[] dijkstra(<span class="type">int</span> n, List&lt;List&lt;Edge&gt;&gt; graph, <span class="type">int</span> start) &#123;</span><br><span class="line">        <span class="type">int</span>[] dist = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        Arrays.fill(dist, INF);</span><br><span class="line">        dist[start] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span>[] visited = <span class="keyword">new</span> <span class="title class_">boolean</span>[n];</span><br><span class="line">        PriorityQueue&lt;<span class="type">int</span>[]&gt; pq = <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; a[<span class="number">1</span>] - b[<span class="number">1</span>]);</span><br><span class="line">        pq.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start, <span class="number">0</span>&#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!pq.isEmpty()) &#123;</span><br><span class="line">            <span class="type">int</span>[] cur = pq.poll();</span><br><span class="line">            <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> cur[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span> (visited[u]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            visited[u] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (Edge edge : graph.get(u)) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> edge.to;</span><br><span class="line">                <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> edge.weight;</span><br><span class="line">                <span class="keyword">if</span> (dist[u] != INF &amp;&amp; dist[u] + w &lt; dist[v]) &#123;</span><br><span class="line">                    dist[v] = dist[u] + w;</span><br><span class="line">                    pq.offer(<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;v, dist[v]&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dist;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">5</span>;  <span class="comment">// 节点数</span></span><br><span class="line">        List&lt;List&lt;Edge&gt;&gt; graph = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            graph.add(<span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加边和权重，示例图</span></span><br><span class="line">        graph.get(<span class="number">0</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">1</span>, <span class="number">4</span>));</span><br><span class="line">        graph.get(<span class="number">0</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">2</span>, <span class="number">2</span>));</span><br><span class="line">        graph.get(<span class="number">1</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">2</span>, <span class="number">5</span>));</span><br><span class="line">        graph.get(<span class="number">1</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">3</span>, <span class="number">10</span>));</span><br><span class="line">        graph.get(<span class="number">2</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">3</span>, <span class="number">3</span>));</span><br><span class="line">        graph.get(<span class="number">2</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">4</span>, <span class="number">2</span>));</span><br><span class="line">        graph.get(<span class="number">3</span>).add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">4</span>, <span class="number">7</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>;  <span class="comment">// 起点</span></span><br><span class="line">        <span class="type">int</span>[] distances = dijkstra(n, graph, start);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> dist : distances) &#123;</span><br><span class="line">            System.out.print(dist + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> from;</span><br><span class="line">    <span class="type">int</span> to;</span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line"></span><br><span class="line">    Edge(<span class="type">int</span> from, <span class="type">int</span> to, <span class="type">int</span> weight) &#123;</span><br><span class="line">        <span class="built_in">this</span>.from = from;</span><br><span class="line">        <span class="built_in">this</span>.to = to;</span><br><span class="line">        <span class="built_in">this</span>.weight = weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BellmanFordTemplate</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">INF</span> <span class="operator">=</span> Integer.MAX_VALUE / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Bellman - Ford算法求单源最短路径</span></span><br><span class="line">    <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">bellmanFord</span><span class="params">(<span class="type">int</span> n, List&lt;Edge&gt; edges, <span class="type">int</span> start, <span class="type">int</span>[] dist)</span> &#123;</span><br><span class="line">        Arrays.fill(dist, INF);</span><br><span class="line">        dist[start] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Edge edge : edges) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> edge.from;</span><br><span class="line">                <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> edge.to;</span><br><span class="line">                <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> edge.weight;</span><br><span class="line">                <span class="keyword">if</span> (dist[u] != INF &amp;&amp; dist[u] + w &lt; dist[v]) &#123;</span><br><span class="line">                    dist[v] = dist[u] + w;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 检测负权环</span></span><br><span class="line">        <span class="keyword">for</span> (Edge edge : edges) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">u</span> <span class="operator">=</span> edge.from;</span><br><span class="line">            <span class="type">int</span> <span class="variable">v</span> <span class="operator">=</span> edge.to;</span><br><span class="line">            <span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> edge.weight;</span><br><span class="line">            <span class="keyword">if</span> (dist[u] != INF &amp;&amp; dist[u] + w &lt; dist[v]) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">// 存在负权环</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">5</span>;  <span class="comment">// 节点数</span></span><br><span class="line">        List&lt;Edge&gt; edges = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加边和权重，示例图</span></span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>));</span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>));</span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>));</span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="number">10</span>));</span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>));</span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>));</span><br><span class="line">        edges.add(<span class="keyword">new</span> <span class="title class_">Edge</span>(<span class="number">3</span>, <span class="number">4</span>, <span class="number">7</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>;  <span class="comment">// 起点</span></span><br><span class="line">        <span class="type">int</span>[] dist = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        <span class="keyword">if</span> (bellmanFord(n, edges, start, dist)) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> d : dist) &#123;</span><br><span class="line">                System.out.print(d + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;图中存在负权环&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Floyd-Warshall算法"><a href="#Floyd-Warshall算法" class="headerlink" title="Floyd-Warshall算法"></a>Floyd-Warshall算法</h3><h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>常见题型：背包问题、最长公共子序列、最大子数组和</p>
+<p>常用方法：</p>
+<ul>
+<li>状态转移方程：定义问题的状态和状态转移</li>
+<li>记忆化搜索：用于优化递归解法</li>
+</ul>
+<h3 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h3><p>1.求背包至少能装多大价值的物品</p>
+<p>标准的完全背包问题，使用动规解决。定义状态<code>dp[i][j]</code>表示前i个物品放入容量为j的背包中所能获得的最大价值。状态转移方程为：</p>
+<ul>
+<li><p>当第i个物品的重量weights[i-1]大于当前背包容量j时，不能放入该物品，<code>dp[i][j] = dp[i-1][j]</code></p>
+</li>
+<li><p>当第i个物品的重量weights[i-1]小于等于当前背包容量j时，可以选择放入或不放入该物品</p>
+<p><code>Math.max(dp[i][j], dp[i][j-weights[i-1]] + valuess[i - 1]);</code></p>
+</li>
+</ul>
+<p>2.若背包恰好装满，求至多能装多大价值的物品</p>
+<p>仍然设 <code>dp[i][j]</code>表示前 i 种物品放入容量为 j 的背包中所能获得的最大价值。</p>
+<p>将 <code>dp[0][0]</code>初始化为0， 表示没有物品放入容量为0的背包时价值为0，对于j &gt; 0的<code>dp[0][j]</code>，初始化为一个极小值，因为没有物品时无法装满背包，所以这些状态是无效的。</p>
+<p>状态转移方程与标准完全背包问题的状态转移方程相同。</p>
+<p><strong>完全背包问题和0-1背包问题的区别</strong>：</p>
+<p>0-1背包问题：每种物品只有一个，对于每个物品只有选或不选两种情况。状态转移时，<code>dp[i][j]</code>由<code>dp[i-1][j]</code>（不选第i个物品）和 <code>dp[i-1][j-weights[i-1]]+values[i-1]</code>（选第i个物品）推导而来，因为物品只有一个，选了它就不能再选，所以是从 <code>dp[i-1]</code>这一行的状态转移过来。</p>
+<p>完全背包问题：每种物品有无限个。在状态转移时，当第i个物品的重量小于等于当前背包容量 j 时，虽然同样考虑放入或不放入该物品， 但由于物品可以多次选取，放入物品时是从 <code>dp[i][j-weights[i-1]]+values[i-1]</code>推导，也就是从当前行<code>dp[i]</code>的状态转移过来，意味着可以重复选择第 i 个物品，而不像0 - 1背包那样只能选一次。</p>
+<h3 id="Kadane算法"><a href="#Kadane算法" class="headerlink" title="Kadane算法"></a>Kadane算法</h3><p>101001001，翻转一个任意长度的子串，使1的数量最多，求最多的1的数量。</p>
+<p>可以通过将问题转化为最大子数组和问题来优化时间复杂度。把 0 看作 1，1 看作 -1，那么翻转一个子串就相当于将该子串对应的数值取反，目标是让所有数值的和最大。这可以使用 Kadane 算法来解决，时间复杂度可以优化到 O(n)。</p>
+<p>最大子数组和：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxSubArray</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">        <span class="comment">//定义f[i]为第i个位置上的最大子数组和</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.length;</span><br><span class="line">        <span class="type">int</span>[] f = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">        f[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> f[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> f[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">            f[i] = Math.max(nums[i], f[i-<span class="number">1</span>]+nums[i]);</span><br><span class="line">            max = Math.max(max,f[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Kadane 算法（卡丹算法）是一种用于解决最大子数组和问题的高效算法，由美国计算机科学家 Jay Kadane 设计，其时间复杂度为 (O(n))，其中 n 是数组的长度。</p>
+<p>Kadane 算法的核心思想是使用动态规划的思想，通过一次遍历数组，在遍历过程中维护两个变量：</p>
+<ul>
+<li><p>当前最大子数组和：表示以当前元素结尾的连续子数组的最大和。</p>
+</li>
+<li><p>全局最大子数组和：表示整个数组中连续子数组的最大和。</p>
+<p>在遍历数组时，对于每个元素，有两种选择：将当前元素加入到之前的子数组中 &#x2F; 以当前元素作为新的子数组的起始。<br>选择哪种方式取决于哪种方式能得到更大的和。</p>
+</li>
+</ul>
+<h3 id="122-买卖股票的最佳时机II"><a href="#122-买卖股票的最佳时机II" class="headerlink" title="122.买卖股票的最佳时机II"></a>122.买卖股票的最佳时机II</h3><p>状态数组：<code>f[i][0]</code>表示第i天结束时不持有股票的最大利润，<code>f[i][1]</code>表示第i天结束时持有股票的最大利润。数组长度为i+1是为了方便处理第0天的初始状态。</p>
+<p>第0天结束时不持有股票的最大利润初始化为0，第0天结束时持有股票是不可能的情况，初始化为 <code>Integer.MIN_VALUE</code>，表示这种情况是不合法的。</p>
+<p>状态转移方程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    f[i + <span class="number">1</span>][<span class="number">0</span>] = Math.max(f[i][<span class="number">0</span>], f[i][<span class="number">1</span>] + prices[i]);</span><br><span class="line">    f[i + <span class="number">1</span>][<span class="number">1</span>] = Math.max(f[i][<span class="number">1</span>], f[i][<span class="number">0</span>] - prices[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>f[i + 1][0]</code> 表示第 i + 1 天结束时不持有股票的最大利润，有两种情况可以转移到这个状态：<br>第 i 天就不持有股票，第 i + 1 天保持不持有股票的状态，即 <code>f[i][0]</code>。<br>第 i 天持有股票，第 i + 1 天卖出股票，获得 <code>prices[i]</code> 的利润，即 <code>f[i][1] + prices[i]</code>。</p>
+<p>最终的最大利润是第 n 天结束时不持有股票的最大利润，因为最后一天持有股票是没有意义的，所以返回 <code>f[n][0]</code>。</p>
+<p>可以将空间复杂度优化到 <code>O(1)</code>，因为状态转移只依赖于前一天的状态，不需要保存整个状态数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxProfit</span><span class="params">(<span class="type">int</span>[] prices)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> prices.length;</span><br><span class="line">        <span class="type">int</span> <span class="variable">notHold</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">hold</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">prevNotHold</span> <span class="operator">=</span> notHold;</span><br><span class="line">            notHold = Math.max(notHold, hold + prices[i]);</span><br><span class="line">            hold = Math.max(hold, prevNotHold - prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> notHold;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="排序和搜索"><a href="#排序和搜索" class="headerlink" title="排序和搜索"></a>排序和搜索</h2><p>常见题型：排序算法、二分查找、Top K问题</p>
+<p>常用方法：</p>
+<ul>
+<li>快速排序、归并排序：用于排序问题</li>
+<li>二分查找：用于有序数组的查找</li>
+<li>堆：用于Top K问题</li>
+</ul>
+<p>TopK问题：快排 &#x2F; 堆 &#x2F; 二叉搜索树 &#x2F; 计数排序</p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序的核心思想是通过选择一个基准元素（pivot），将数组分为两部分，使得左边部分的所有元素都小于等于基准元素，右边部分的所有元素都大于等于基准元素，然后分别对左右两部分递归地进行快速排序，最终得到一个有序的数组。</p>
+<p>算法步骤：选择基准元素 - 分区操作 - 递归排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuickSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">quickSort</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="comment">// 分区操作，得到基准元素的最终位置</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">pivotIndex</span> <span class="operator">=</span> partition(arr, low, high);</span><br><span class="line">            <span class="comment">// 递归排序基准元素左边的子数组</span></span><br><span class="line">            quickSort(arr, low, pivotIndex - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">// 递归排序基准元素右边的子数组</span></span><br><span class="line">            quickSort(arr, pivotIndex + <span class="number">1</span>, high);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">partition</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> high)</span> &#123;</span><br><span class="line">        <span class="comment">// 选择最后一个元素作为基准元素</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> arr[high];</span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> low - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> low; j &lt; high; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt;= pivot) &#123;</span><br><span class="line">                i++;</span><br><span class="line">                <span class="comment">// 交换元素</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[i];</span><br><span class="line">                arr[i] = arr[j];</span><br><span class="line">                arr[j] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将基准元素放到正确的位置</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[i + <span class="number">1</span>];</span><br><span class="line">        arr[i + <span class="number">1</span>] = arr[high];</span><br><span class="line">        arr[high] = temp;</span><br><span class="line">        <span class="keyword">return</span> i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] arr = &#123;<span class="number">3</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        quickSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : arr) &#123;</span><br><span class="line">            System.out.print(num + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h2><p><img src="/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/image-20250308170411573-1741424652909-1.png" alt="image-20250308170411573"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PerfectRectanglesWithPrefixSum</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">        scanner.nextLine();</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[][] matrix = <span class="keyword">new</span> <span class="title class_">int</span>[n][n];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> scanner.nextLine();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                matrix[i][j] = line.charAt(j) - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span>[][] prefixSum = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>][n + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 计算二维前缀和</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                prefixSum[i][j] = prefixSum[i - <span class="number">1</span>][j] + prefixSum[i][j - <span class="number">1</span>] - prefixSum[i - <span class="number">1</span>][j - <span class="number">1</span>] + matrix[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算不同大小的完美矩形区域的数量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">1</span>; size &lt;= n; size++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n - size; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= n - size; j++) &#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">endX</span> <span class="operator">=</span> i + size;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">endY</span> <span class="operator">=</span> j + size;</span><br><span class="line">                    <span class="comment">// 利用前缀和计算子矩阵中 1 的数量</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">ones</span> <span class="operator">=</span> prefixSum[endX][endY] - prefixSum[endX][j] - prefixSum[i][endY] + prefixSum[i][j];</span><br><span class="line">                    <span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> size * size;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">zeros</span> <span class="operator">=</span> total - ones;</span><br><span class="line">                    <span class="keyword">if</span> (zeros == ones) &#123;</span><br><span class="line">                        count++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(count);</span><br><span class="line">        &#125;</span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>kaisei
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://miraisen.github.io/2025/03/04/%E9%9D%A2%E8%AF%95%E6%89%8B%E6%92%95%E7%AC%94%E8%AE%B0/" title="面试手撕笔记">http://miraisen.github.io/2025/03/04/面试手撕笔记/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/11/29/%E5%AD%A6%E4%B9%A0%E5%9D%90%E6%A0%87%E5%9B%BE/" rel="prev" title="学习坐标图">
+      <i class="fa fa-chevron-left"></i> 学习坐标图
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">面试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">2.1.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#402-%E7%A7%BB%E6%8E%89K%E4%BD%8D%E6%95%B0%E5%AD%97"><span class="nav-number">2.1.1.</span> <span class="nav-text">402.移掉K位数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#71-%E7%AE%80%E5%8C%96%E8%B7%AF%E5%BE%84"><span class="nav-number">2.1.2.</span> <span class="nav-text">71.简化路径</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%8D%E4%BD%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">降低空间复杂度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E9%82%BB%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E6%B6%88%E9%99%A4"><span class="nav-number">2.1.3.</span> <span class="nav-text">相邻重复元素消除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5"><span class="nav-number">2.2.</span> <span class="nav-text">矩阵</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#73-%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6"><span class="nav-number">2.2.1.</span> <span class="nav-text">73.矩阵置零</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="nav-number">2.3.</span> <span class="nav-text">哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#49-%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84"><span class="nav-number">2.3.1.</span> <span class="nav-text">49.字母异位词分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF"><span class="nav-number">2.4.</span> <span class="nav-text">回溯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#46-%E5%85%A8%E6%8E%92%E5%88%97"><span class="nav-number">2.4.1.</span> <span class="nav-text">46.全排列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.5.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#112-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C"><span class="nav-number">2.5.1.</span> <span class="nav-text">112.路径总和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0"><span class="nav-number">2.5.2.</span> <span class="nav-text">222.完全二叉树的节点个数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E7%BB%8F%E9%A2%98%E5%8D%95"><span class="nav-number">2.6.</span> <span class="nav-text">面经题单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BE%8E%E5%9B%A2"><span class="nav-number">2.6.1.</span> <span class="nav-text">美团</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%94%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">笔试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">3.1.</span> <span class="nav-text">输入输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.2.</span> <span class="nav-text">数组和字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-number">3.3.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%91%E5%92%8C%E5%9B%BE"><span class="nav-number">3.4.</span> <span class="nav-text">树和图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.4.1.</span> <span class="nav-text">最短路径问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98-%E2%80%94%E2%80%94-Dijkstra%E7%AE%97%E6%B3%95"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">单源最短路径问题 —— Dijkstra算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bellman-Ford%E7%AE%97%E6%B3%95"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">Bellman-Ford算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Floyd-Warshall%E7%AE%97%E6%B3%95"><span class="nav-number">3.4.2.</span> <span class="nav-text">Floyd-Warshall算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">3.5.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">3.5.1.</span> <span class="nav-text">完全背包问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kadane%E7%AE%97%E6%B3%95"><span class="nav-number">3.5.2.</span> <span class="nav-text">Kadane算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII"><span class="nav-number">3.5.3.</span> <span class="nav-text">122.买卖股票的最佳时机II</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2"><span class="nav-number">3.6.</span> <span class="nav-text">排序和搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">3.6.1.</span> <span class="nav-text">快速排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C"><span class="nav-number">3.7.</span> <span class="nav-text">二维前缀和</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kaisei"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">kaisei</p>
+  <div class="site-description" itemprop="description">It's Our Night to Shine</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">55</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2023/10/8 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kaisei</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">113k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:43</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

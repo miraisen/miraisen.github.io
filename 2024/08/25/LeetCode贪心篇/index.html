@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://miraisen.github.io/LeetCode%E8%B4%AA%E5%BF%83%E7%AF%87/image-20240904100736144.png">
 <meta property="article:published_time" content="2024-08-25T04:23:23.000Z">
-<meta property="article:modified_time" content="2024-10-20T12:24:11.386Z">
+<meta property="article:modified_time" content="2024-12-18T11:09:45.058Z">
 <meta property="article:author" content="kaisei">
 <meta property="article:tag" content="Algorithms">
 <meta property="article:tag" content="Greedy">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-10-20 20:24:11" itemprop="dateModified" datetime="2024-10-20T20:24:11+08:00">2024-10-20</time>
+                <time title="修改时间：2024-12-18 19:09:45" itemprop="dateModified" datetime="2024-12-18T19:09:45+08:00">2024-12-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,7 +255,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>799</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -293,6 +293,23 @@
 <h2 id="区间问题"><a href="#区间问题" class="headerlink" title="区间问题"></a>区间问题</h2><p>选择的区间结尾越小，余留给其他区间的空间就越大，就能保留更多的空间，为了移除更少个数的区间，优先保留结尾小且不相交的区间。</p>
 <p>根据实际情况判断按区间开头排序还是按区间结尾排序。</p>
 <h2 id="从最小-最大开始贪心"><a href="#从最小-最大开始贪心" class="headerlink" title="从最小&#x2F;最大开始贪心"></a>从最小&#x2F;最大开始贪心</h2><p>优先考虑最小&#x2F;最大的数，从小到大&#x2F;从大到小贪心。</p>
+<h3 id="1005-K次取反后最大化的数组和"><a href="#1005-K次取反后最大化的数组和" class="headerlink" title="1005.K次取反后最大化的数组和"></a>1005.K次取反后最大化的数组和</h3><p>局部最优：让绝对值大的负数变为正数，当前数值达到最大，整体最优：整个数组和达到最大。局部最优可以推出全局最优。</p>
+<p>首先将可操作次数用于将所有的负数变成正数。如果还有操作次数，那么反复转变数值最小的元素，将次数用完。</p>
+<p>要点一：按绝对值排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(AA, (a,b)-&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> Math.abs(b) - Math.abs(a);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这样排的话，绝对值大的在前面。</p>
+<p>要点二：反复转变数值最小的元素</p>
+<p>如果操作次数是偶数，那么就不变，操作次数为奇数才需要反转</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(k%<span class="number">2</span>=<span class="number">1</span>) AA[n - <span class="number">1</span>] = -AA[n-<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<h2 id="跳跃游戏-II"><a href="#跳跃游戏-II" class="headerlink" title="跳跃游戏 II"></a>跳跃游戏 II</h2><p><strong>题意</strong>：给定一个非负整数数组nums，数组中的每个元素代表在该位置可以跳跃的最大长度，要求计算出从数组起始位置到达最后一个位置所需的最少跳跃次数。</p>
+<p>记录当前能到达的最远位置，在数组遍历过程中不断更新为能到达的更远处的索引位置。</p>
+<p>记录当前跳跃步数下能够到达的边界位置。每当完成一次跳跃，这个边界位置就会更新为下一次跳跃能到达的最远边界。</p>
+<p>记录统计跳跃的步数。每完成一次有效的跳跃，即到达了当前步数所能到达的边界并需要跨越到下一个更远的边界时，该值加1。</p>
+<p><strong>注意事项</strong>：遍历数组时，循环条件应该是倒数第二个位置，因为只要能到达倒数第二个位置，就一定可以通过最后一步跳跃到达最后一个位置，所以不需要遍历到数组的最后一个索引。</p>
+<p><strong>算法核心</strong>：判断位置i是否在能够到达的范围内，只有在这个范围内，才能基于当前位置继续探索更远的地方。</p>
+<p>当i已经等于当前跳跃步数下能够到达的边界位置，说明需要更新下一次跳跃的边界了，所以将边界更新为当前能到达的最远位置，并且将跳跃步数加1，意味着完成了一次新的跳跃。</p>
 
     </div>
 
@@ -394,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5"><span class="nav-number">1.</span> <span class="nav-text">贪心策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">分配问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">区间问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9C%80%E5%B0%8F-%E6%9C%80%E5%A4%A7%E5%BC%80%E5%A7%8B%E8%B4%AA%E5%BF%83"><span class="nav-number">1.3.</span> <span class="nav-text">从最小&#x2F;最大开始贪心</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%AA%E5%BF%83%E7%AD%96%E7%95%A5"><span class="nav-number">1.</span> <span class="nav-text">贪心策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">分配问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">区间问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9C%80%E5%B0%8F-%E6%9C%80%E5%A4%A7%E5%BC%80%E5%A7%8B%E8%B4%AA%E5%BF%83"><span class="nav-number">1.3.</span> <span class="nav-text">从最小&#x2F;最大开始贪心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1005-K%E6%AC%A1%E5%8F%96%E5%8F%8D%E5%90%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8C"><span class="nav-number">1.3.1.</span> <span class="nav-text">1005.K次取反后最大化的数组和</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F-II"><span class="nav-number">1.4.</span> <span class="nav-text">跳跃游戏 II</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -410,20 +427,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -450,7 +467,7 @@
 <div class="copyright">
   
   &copy; 2023/10/8 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -459,12 +476,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">93k</span>
+    <span title="站点总字数">113k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:24</span>
+    <span title="站点阅读时长">1:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
